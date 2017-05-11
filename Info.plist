@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Author</key>
+	<string>Unknown</string>
+	<key>Buffer Order</key>
+	<array>
+		<string>camera</string>
+		<string>editor</string>
+		<string>files</string>
+		<string>flat_animate</string>
+		<string>flat_ui</string>
+		<string>folder</string>
+		<string>game</string>
+		<string>lamp</string>
+		<string>lever</string>
+		<string>Main</string>
+		<string>not_gate</string>
+		<string>port</string>
+		<string>ui</string>
+		<string>ui_editor</string>
+		<string>wire</string>
+		<string>wire_line</string>
+		<string>wire_point</string>
+	</array>
+	<key>Description</key>
+	<string>No description available</string>
+	<key>Icon</key>
+	<string>Icon.png</string>
+</dict>
+</plist>
