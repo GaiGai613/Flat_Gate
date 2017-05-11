@@ -1,4 +1,4 @@
-flat_ui = class()
+flat_ui = class(huhu)
 
 function flat_ui:init()
     tap_count = 0

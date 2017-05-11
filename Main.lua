@@ -2,7 +2,11 @@ supportedOrientations(LANDSCAPE_ANY)
 displayMode(OVERLAY) displayMode(FULLSCREEN)
 parameter.watch("1/DeltaTime")
 sprite()
+
+DEVELOPMODE = true
+
 function setup()
+    if DEVELOPMODE then download() end -- Only for vsc develop mode.
     cwg() -- Setup set var.
     input_images()
     rectMode(CENTER) font("GillSans-Light")
