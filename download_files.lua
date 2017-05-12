@@ -1,5 +1,6 @@
 classes = {
 {name = "camera",type = ".lua"},
+{name = "download",type = ".lua"},
 {name = "editor",type = ".lua"},
 {name = "files",type = ".lua"},
 {name = "flat_animate",type = ".lua"},

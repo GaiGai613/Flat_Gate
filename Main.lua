@@ -3,7 +3,7 @@ displayMode(OVERLAY) displayMode(FULLSCREEN)
 parameter.watch("1/DeltaTime")
 sprite()
 
-DEVELOPMODE = true
+DEVELOPMODE = false
 
 function setup()
     if DEVELOPMODE then download() end -- Only for vsc develop mode.

@@ -1,4 +1,4 @@
-function download()
+function setup()
     if readLocalData("downloaded") then
         saveLocalData("downloaded",false)
         return
