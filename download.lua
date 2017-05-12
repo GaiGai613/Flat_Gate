@@ -38,4 +38,3 @@ end
 function not_get_data(error)
     print("Error\n"..error)
 end
--- download()
