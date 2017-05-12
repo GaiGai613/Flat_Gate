@@ -1,0 +1,23 @@
+classes = {
+{name = "camera",type = ".lua"},
+{name = "editor",type = ".lua"},
+{name = "files",type = ".lua"},
+{name = "flat_animate",type = ".lua"},
+{name = "flat_ui",type = ".lua"},
+{name = "folder",type = ".lua"},
+{name = "game",type = ".lua"},
+{name = "lamp",type = ".lua"},
+{name = "lever",type = ".lua"},
+{name = "Main",type = ".lua"},
+{name = "not_gate",type = ".lua"},
+{name = "port",type = ".lua"},
+{name = "ui",type = ".lua"},
+{name = "ui_editor",type = ".lua"},
+{name = "wire",type = ".lua"},
+{name = "wire_line",type = ".lua"},
+{name = "wire_point",type = ".lua"},
+{name = "editor_icon",type = ".png"},
+{name = "folder_icon",type = ".png"},
+{name = "project_icon",type = ".png"},
+{name = "ui_icon",type = ".png"}
+}
