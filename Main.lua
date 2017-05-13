@@ -5,6 +5,9 @@ sprite()
 
 if not readLocalData("VERSION") then saveLocalData("VERSION","Beta 0.1.0") end
 
+DEVELOPMODE = true
+NOTCHANGEMAIN = false
+
 VERSION = readLocalData("VERSION")
 -- REDOWNLOAD = true -- Download again.
 TRYUPDATE = false
