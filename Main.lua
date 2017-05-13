@@ -3,6 +3,7 @@ displayMode(OVERLAY) displayMode(FULLSCREEN)
 parameter.watch("1/DeltaTime")
 sprite()
 
+VERSION = "Beta 0.1.0"
 DEVELOPMODE = false
 
 function setup()

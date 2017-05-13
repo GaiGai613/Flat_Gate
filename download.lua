@@ -1,19 +1,13 @@
 function download()
-    if readLocalData("downloaded") then
-        saveLocalData("downloaded",false)
-        return
-    end
-    
-
     url = "https://raw.githubusercontent.com/GaiGai613/Flat_Gate/master/"
-
-    print("Start downloading file index...")
-
-    http.request(url.."download_files.lua",update_download_files,not_get_data)
-
     now_tab = 1
-    
-    saveLocalData("downloaded",true)
+
+    if not string.sub(VERSION,1,17) then
+        print("Checking update...")
+        http.request(url.."VERSION.txt",get_update_info,not_get_data)
+    else
+        request_data(now_tab)
+    end
 end
 
 function request_data(id)
@@ -21,10 +15,21 @@ function request_data(id)
     http.request(url..(info.name)..(info.type),get_data,not_get_data)
 end
 
+function get_update_info(data,status,headers)
+    if string.sub(VERSION,1,11) == "NEED UPDATE" then
+        http.request(url.."download_files.lua",update_download_files,not_get_data)
+    elseif data == VERSION then
+        alert("Already on the latest version.")
+        close()
+    else
+        VERSION = "NEED UPDATE"..data
+    end
+end
+
 function update_download_files(data,status,headers)
     print("Starting download files...")
     saveProjectTab("download_files",data)
-    request_data(now_tab)
+    VERSION = "NEED UPDATE FILES"..string.sub(VERSION,12)
 end
 
 function get_data(data,status,headers)
@@ -35,11 +40,13 @@ function get_data(data,status,headers)
     elseif info.type == ".png" then
         saveImage("Project:"..info.name,data)
     end
-    if now_tab == #classes then print("Finished.") restart() end
+    if now_tab == #classes then print("Finished.") if not DEVELOPMODE then restart() else close() end
     now_tab = now_tab+1
     request_data(now_tab)
 end
 
 function not_get_data(error)
     print("Error\n"..error)
+    alert("Error\n"..error)
+    close()
 end

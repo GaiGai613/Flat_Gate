@@ -1,19 +1,12 @@
 function setup()
-    if readLocalData("downloaded") then
-        saveLocalData("downloaded",false)
-        return
-    end
-    
-
+    if classes then downloaded_index = true else downloaded_index = false end
     url = "https://raw.githubusercontent.com/GaiGai613/Flat_Gate/master/"
+    now_tab = 1
 
     print("Start downloading file index...")
 
-    http.request(url.."download_files.lua",update_download_files,not_get_data)
-
-    now_tab = 1
-    
-    saveLocalData("downloaded",true)
+    if not downloaded_index then http.request(url.."download_files.lua",update_download_files,not_get_data) end
+    request_data(now_tab)
 end
 
 function request_data(id)
@@ -24,7 +17,7 @@ end
 function update_download_files(data,status,headers)
     print("Starting download files...")
     saveProjectTab("download_files",data)
-    request_data(now_tab)
+    restart()
 end
 
 function get_data(data,status,headers)
@@ -35,7 +28,7 @@ function get_data(data,status,headers)
     elseif info.type == ".png" then
         saveImage("Project:"..info.name,data)
     end
-    if now_tab == #classes then print("Finished.") restart() end
+    if now_tab == #classes then print("Finished.") if not DEVELOPMODE then restart() else close() end
     now_tab = now_tab+1
     request_data(now_tab)
 end
