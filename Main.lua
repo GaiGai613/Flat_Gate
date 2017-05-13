@@ -6,10 +6,10 @@ sprite()
 if not readLocalData("VERSION") then saveLocalData("VERSION","Beta 0.1.0") end
 
 VERSION = readLocalData("VERSION")
-DEVELOPMODE = false
+TRYUPDATE = false
 
 function setup()
-    if DEVELOPMODE then download() end -- Only for vsc develop mode.
+    if TRYUPDATE then download() end -- Only for vsc develop mode.
     cwg() -- Setup set var.
     input_images()
     rectMode(CENTER) font("GillSans-Light")
