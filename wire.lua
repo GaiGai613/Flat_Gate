@@ -76,6 +76,13 @@ function wire:group_wires(w1,w2)
     if s then
         w1.s,w1.e = s,e
         self.lines[w2.p] = nil
+        w1:update_button_pos()
+    end
+end
+
+function wire:update_camera(pos)
+    for k , one_wire in pairs(self.lines) do
+        one_wire:update_button_pos(pos)
     end
 end
 

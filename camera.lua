@@ -28,5 +28,6 @@ function _camera:touched(t)
         local e = game.current_editor
         local pos = vec2(math.roundTo(self.x,e.size),math.roundTo(self.y,e.size))
         self.apos = flat_animate(self.apos.pos,pos,0.2)
+        e.wire:update_camera(pos)
     end
 end

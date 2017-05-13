@@ -19,13 +19,13 @@ function wire_line:draw(s,w)
     if self.button then flat_ui:button_draw(self.button) end
 end
 
-function wire_line:update_button_pos()
+function wire_line:update_button_pos(cpos)
     if not self.wire.editor then return end
     if not self.button then self.button = flat_ui:add_button(0,0,0,0,color(0,0)) end
     local ed = self.wire.editor
-    local cpos = vec2(ed.camera.x,ed.camera.y)
+    local cpos = cpos or vec2(ed.camera.x,ed.camera.y)
     local s,e = self.s*ed.size-cpos,self.e*ed.size-cpos
-    local w = ed.size/10*3
+    local w = ed.size/2
     
     self.button.x,self.button.y = ((s+e)/2):unpack()
     self.button.width,self.button.height = (s-e):unpack()

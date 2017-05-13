@@ -1,4 +1,4 @@
-flat_ui = class(huhu)
+flat_ui = class()
 
 function flat_ui:init()
     tap_count = 0
@@ -303,7 +303,7 @@ function flat_ui:button_draw(button_now)
         if b.touching.state == ENDED then
             b.touching = nil
         else
-            if not (self.only_draw and not b.must_check) and button_pressed then
+            if not (self.only_draw and not b.must_check) and button_pressed and b.bc.a ~= 0 then
                 fill(0,0,0,50)
                 strokeWidth(0)
                 rect(b.x,b.y,b.width,b.height)
