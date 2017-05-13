@@ -17,6 +17,9 @@ function wire_line:draw(s,w)
     line(sx*s,sy*s,ex*s,ey*s)
     
     if self.button then flat_ui:button_draw(self.button) end
+
+    if t.state == BEGAN then self.selected = false end
+    if self.button.pressed and tap_count == 1 then self.selected = true end
 end
 
 function wire_line:update_button_pos(cpos)
@@ -35,6 +38,5 @@ function wire_line:update_button_pos(cpos)
 end
 
 function wire_line:touched(t)
-    if t.state == BEGAN then self.selected = false end
-    if self.button.pressed and tap_count == 1 then self.selected = true end
+    
 end

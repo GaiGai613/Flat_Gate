@@ -19,6 +19,8 @@ function not_gate:draw(s,x,y)
     translate(x,y) self.wire:draw(s) translate(-x,-y) gdc() -- Wire
     rect(x,y,self.width*s,self.height*s) COLOR2.a = 255 -- Background
     fill(COLOR2) fontSize(s) text("N",x,y) -- "N"
+
+    if self.button then flat_ui:button_draw(self.button) end
 end
 
 function not_gate:update()
@@ -39,5 +41,5 @@ function not_gate:update_button_pos()
 end
 
 function not_gate:touched(t)
-    flat_ui:button_draw(self.button)
+    
 end

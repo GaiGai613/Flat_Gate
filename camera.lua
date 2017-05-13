@@ -29,5 +29,6 @@ function _camera:touched(t)
         local pos = vec2(math.roundTo(self.x,e.size),math.roundTo(self.y,e.size))
         self.apos = flat_animate(self.apos.pos,pos,0.2)
         e.wire:update_camera(pos)
+        e:update_camera(pos)
     end
 end

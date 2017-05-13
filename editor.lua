@@ -39,6 +39,13 @@ function editor:update()
     
 end
 
+function editor:update_camera(pos)
+    for k , one_obj in pairs(self.objs) do
+        local obj = one_obj.obj
+        if obj.update_camera then obj:update_camera(pos) end
+    end
+end
+
 function editor:open()
     game.current_editor = self
 end
