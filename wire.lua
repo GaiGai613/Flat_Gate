@@ -14,13 +14,7 @@ function wire:draw(s)
     end
     strokeWidth(0) 
     for k , p in pairs(self.points) do
-        local o = p.opens
-        rect(p.x*s,p.y*s,w*3) fill(COLOR2)
-        rect(p.x*s,p.y*s,w)
-        for j , ops in pairs(o) do
-            local d = ops.d
-            rect(p.x*s+d.x*w,p.y*s+d.y*w,w)
-        end
+        p:draw(s,w)
     end
     
     self:add_animate()
@@ -89,9 +83,9 @@ function wire:touched(t)
     if tap_count == 1 then
         if t.state == BEGAN then
             self.st = vec2(t.x,t.y)
-            self.add_wire_animate = flat_animate(-1.5,1,0.8)
+            self.add_wire_animate = flat_animate(-1,1,0.8)
         elseif self.add_wire_animate.pos < 0 then
-            self.add_wire_animate = fasu(-2)
+            self.add_wire_animate = fasu(-1)
         end
         if self.adding then
             local es,ec = self.editor.size,self.editor.camera
@@ -105,7 +99,11 @@ function wire:touched(t)
                 self.st = vec2(t.x,t.y)
             end
         end
-    elseif self.add_wire_animate ~= fasu(-2) then
-        self.add_wire_animate = fasu(-2)
+    elseif self.add_wire_animate ~= fasu(-1) then
+        self.add_wire_animate = fasu(-1)
+    end
+
+    for k , one_wire in pairs(self.lines) do
+        one_wire:touched(t)
     end
 end
