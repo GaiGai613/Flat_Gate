@@ -26,7 +26,7 @@ function get_data(data,status,headers)
     if info.type == ".lua" then
         saveProjectTab(info.name,data)
     elseif info.type == ".png" then
-        saveImage("Project:"..info.name,data)
+        saveImage("Documents:"..info.name,data)
     end
     if now_tab == #classes then print("Finished.") alert("Finished.") close() end
     now_tab = now_tab+1
