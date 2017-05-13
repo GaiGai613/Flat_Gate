@@ -23,6 +23,7 @@ function get_update_info(data,status,headers)
         close()
     else
         saveLocalData("VERSION","NEED UPDATE"..data)
+        restart()
     end
 end
 
