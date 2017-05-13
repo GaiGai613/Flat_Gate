@@ -3,7 +3,9 @@ displayMode(OVERLAY) displayMode(FULLSCREEN)
 parameter.watch("1/DeltaTime")
 sprite()
 
-VERSION = "Beta 0.1.0"
+if not readLocalData("VERSION") then saveLocalData("VERSION","Beta 0.1.0") end
+
+VERSION = readLocalData("VERSION")
 DEVELOPMODE = false
 
 function setup()

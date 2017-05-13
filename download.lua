@@ -2,7 +2,7 @@ function download()
     url = "https://raw.githubusercontent.com/GaiGai613/Flat_Gate/master/"
     now_tab = 1
 
-    if not string.sub(VERSION,1,17) then
+    if not string.sub(VERSION,1,17) == "NEED UPDATE FILES" then
         print("Checking update...")
         http.request(url.."VERSION.txt",get_update_info,not_get_data)
     else
@@ -22,14 +22,14 @@ function get_update_info(data,status,headers)
         alert("Already on the latest version.")
         close()
     else
-        VERSION = "NEED UPDATE"..data
+        saveLocalData("VERSION","NEED UPDATE"..data)
     end
 end
 
 function update_download_files(data,status,headers)
     print("Starting download files...")
     saveProjectTab("download_files",data)
-    VERSION = "NEED UPDATE FILES"..string.sub(VERSION,12)
+    saveLocalData("VERSION","NEED UPDATE FILES"..string.sub(VERSION,12))
 end
 
 function get_data(data,status,headers)
