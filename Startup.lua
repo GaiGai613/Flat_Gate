@@ -5,7 +5,7 @@ function setup()
 
     print("Start downloading file index...")
 
-    if not downloaded_index then http.request(url.."download_files.lua",update_download_files,not_get_data) end
+    if not downloaded_index then http.request(url.."download_files.lua",update_download_files,not_get_data) return end
     request_data(now_tab)
 end
 
@@ -28,7 +28,7 @@ function get_data(data,status,headers)
     elseif info.type == ".png" then
         saveImage("Project:"..info.name,data)
     end
-    if now_tab == #classes then print("Finished.") if not DEVELOPMODE then restart() else close() end
+    if now_tab == #classes then print("Finished.") alert("Finished.") if not DEVELOPMODE then restart() else close() end end
     now_tab = now_tab+1
     request_data(now_tab)
 end
