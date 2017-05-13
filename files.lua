@@ -154,7 +154,7 @@ function files:touched(t)
 end
 
 files_icons = {} -- Icons for files.
-files_icons["project"] = readImage("Project:project_icon")
-files_icons["ui_editor"] = readImage("Project:ui_icon")
-files_icons["editor"] = readImage("Project:editor_icon")
-files_icons["folder"] = readImage("Project:folder_icon")
+files_icons["project"] = readImage("Documents:project_icon")
+files_icons["ui_editor"] = readImage("Documents:ui_icon")
+files_icons["editor"] = readImage("Documents:editor_icon")
+files_icons["folder"] = readImage("Documents:folder_icon")

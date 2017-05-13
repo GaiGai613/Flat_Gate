@@ -18,7 +18,7 @@ end
 function get_update_info(data,status,headers)
     if string.sub(VERSION,1,11) == "NEED UPDATE" then
         http.request(url.."download_files.lua",update_download_files,not_get_data)
-    elseif data == VERSION then
+    elseif data == VERSION and not REDOWNLOAD then
         alert("Already on the latest version.")
         close()
     else
@@ -31,6 +31,7 @@ function update_download_files(data,status,headers)
     print("Starting download files...")
     saveProjectTab("download_files",data)
     saveLocalData("VERSION","NEED UPDATE FILES"..string.sub(VERSION,12))
+    restart()
 end
 
 function get_data(data,status,headers)
@@ -39,7 +40,7 @@ function get_data(data,status,headers)
     if info.type == ".lua" then
         saveProjectTab(info.name,data)
     elseif info.type == ".png" then
-        saveImage("Project:"..info.name,data)
+        saveImage("Documents:"..info.name,data)
     end
     if now_tab == #classes then print("Finished.") alert("Finished.") close() end
     now_tab = now_tab+1
