@@ -4,7 +4,7 @@ function not_gate:init(obj)
     if obj then
         local s = obj.editor.size
         self.obj = obj
-        self.button = flat_ui:add_button(obj.x*s,obj.y*s,s,s,color(0,10))
+        self.update_button_pos() -- Add button.
     end
     self.width,self.height = 1,1
     self.name,self.type = "NOT GATE","gate"
@@ -25,6 +25,17 @@ function not_gate:update()
     if self.output and self.input then
         self.output.input.value = 1-self.input.output.value
     end
+end
+
+function not_gate:update_button_pos()
+    if not self.obj.editor then return end
+    if not self.button then self.button = flat_ui:add_button(0,0,0,0,color(0,0)) end
+    local ed = self.obj.editor
+    local cpos = vec2(ed.camera.x,ed.camera.y)
+    local pos = vec2(self.obj.x,self.obj.y)*ed.size-cpos
+    
+    self.button.x,self.button.y = pos:unpack()
+    self.button.width,self.button.height = self.width*ed.size,self.height*ed.size
 end
 
 function not_gate:touched(t)

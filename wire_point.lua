@@ -15,7 +15,3 @@ function wire_point:draw(s,w)
         rect(p.x*s+d.x*w,p.y*s+d.y*w,w)
     end
 end
-
-function wire_point:touched(t)
-
-end

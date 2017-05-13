@@ -38,7 +38,7 @@ function get_data(data,status,headers)
     local info = classes[now_tab]
     print('Finished download file "'..(info.name)..(info.type)..'".')
     if info.type == ".lua" then
-        if not NOTCHANGEMAIN or not info.name == "MAIN" then saveProjectTab(info.name,data) end
+        saveProjectTab(info.name,data)
     elseif info.type == ".png" then
         saveImage("Documents:"..info.name,data)
     end
