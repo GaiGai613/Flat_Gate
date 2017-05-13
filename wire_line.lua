@@ -25,9 +25,12 @@ function wire_line:update_button_pos()
     local ed = self.wire.editor
     local cpos = vec2(ed.camera.x,ed.camera.y)
     local s,e = self.s*ed.size-cpos,self.e*ed.size-cpos
+    local w = ed.size/10*3
     
     self.button.x,self.button.y = ((s+e)/2):unpack()
     self.button.width,self.button.height = (s-e):unpack()
+    if self.button.width == 0 then self.button.width = w end
+    if self.button.height == 0 then self.button.height = w end
     self.button.width,self.button.height = math.abs(self.button.width),math.abs(self.button.height)
 end
 
