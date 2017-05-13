@@ -28,7 +28,7 @@ function get_data(data,status,headers)
     elseif info.type == ".png" then
         saveImage("Project:"..info.name,data)
     end
-    if now_tab == #classes then print("Finished.") alert("Finished.") if not DEVELOPMODE then restart() else close() end end
+    if now_tab == #classes then print("Finished.") alert("Finished.") close() end
     now_tab = now_tab+1
     request_data(now_tab)
 end
