@@ -2,7 +2,7 @@ function download()
     url = "https://raw.githubusercontent.com/GaiGai613/Flat_Gate/master/"
     now_tab = 1
 
-    if not string.sub(VERSION,1,17) == "NEED UPDATE FILES" then
+    if string.sub(VERSION,1,17) == "NEED UPDATE FILES" then
         print("Checking update...")
         http.request(url.."VERSION.txt",get_update_info,not_get_data)
     else
