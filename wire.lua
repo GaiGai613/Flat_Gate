@@ -5,6 +5,7 @@ function wire:init(e)
     self.lines,self.points = {},{}
     self.add_wire_animate = fasu(-0.3)
     self.st = vec2(0,0)
+    self.current_wire_dir = vec2(0,0) -- Not useful now.
 end
 
 function wire:draw(s)
@@ -44,8 +45,23 @@ function wire:add_line(s,e)
     end
 end
 
-function wire:add_point()
-    
+function wire:add_point(pos,ws)
+    local p = wire_point(pos,self,{})
+    for k , one_open in pairs(ws) do
+        self:point_add_open(p,one_open)
+    end
+end
+
+function wire:point_add_open(p,w)
+    local h = 100000
+    local od;
+    if p.pos == w.s then od = w.e else od = w.s end
+
+    od = od/h+vec2(1,1)
+    od.x,od.y = math.floor(od.x),math.floor(od.y)
+    od = od-vec2(1,1)
+
+    p.opens[od] = od
 end
 
 function wire:check_group_wires(w1,w2)
@@ -71,8 +87,33 @@ function wire:check_group_wires(w1,w2)
     return false
 end
 
+function wire:check_wire_collide(w1,w2)
+    local l1xmax,l1xmin = math.max(w1.s.x,w1.e.x),math.min(w1.s.x,w1.e.x)
+    local l1ymax,l1ymin = math.max(w1.s.y,w1.e.y),math.min(w1.s.y,w1.e.y)
+    local l2xmax,l2xmin = math.max(w2.s.x,w2.e.x),math.min(w2.s.x,w2.e.x)
+    local l2ymax,l2ymin = math.max(w2.s.y,w2.e.y),math.min(w2.s.y,w2.e.y)
+
+    if l1xmax >= l2xmin and l2xmax >= l1xmin and l1ymax >= l2ymin and l2ymax >= l1ymin then
+        local c1 = vec2(math.max(l1xmin,l2xmin),math.max(l1ymin,l2ymin)
+        local c2 = vec2(math.min(l1xmax,l2xmax),math.min(l1ymax,l2ymax)
+        return c1,c2
+    end
+    return false
+end
+
 function wire:group_wires(w1,w2)
     local s,e = self:check_group_wires(w1,w2)
+    local s1,e1,s2,e2 = w1.s,w1.e,w2.s,w2.e
+    local a1 = (s1):angleBetween(e1)
+    local a2 = (s2):angleBetween(e2)
+
+    if a1 ~= A2 then
+        local c1,c2 = self:check_wire_collide(w1,w2)
+        if c1 then 
+            self:add_point(c1,{w1,w2})
+        end
+    end
+
     if s then
         w1.s,w1.e = s,e
         self.lines[w2.p] = nil

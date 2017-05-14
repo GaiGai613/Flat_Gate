@@ -18,7 +18,7 @@ function wire_line:draw(s,w)
     
     if self.button then flat_ui:button_draw(self.button) end
 
-    if t.state == BEGAN then self.selected = false end
+    if CurrentTouch.state == BEGAN then self.selected = false end
     if self.button.pressed and tap_count == 1 then self.selected = true end
 end
 

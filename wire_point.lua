@@ -2,6 +2,7 @@ wire_point = class()
 
 function wire_point:init(pos,w,opens)
     self.x,self.y = pos:unpack()
+    self.pos = pos
     self.wire = w
     self.opens = opens
 end
