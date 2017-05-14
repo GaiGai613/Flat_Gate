@@ -5,6 +5,8 @@ function wire_point:init(pos,w,opens)
     self.pos = pos
     self.wire = w
     self.opens = opens
+
+    table.insert(self.wire.points,self)
 end
 
 function wire_point:draw(s,w)
