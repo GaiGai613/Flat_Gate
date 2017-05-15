@@ -5,7 +5,7 @@ function wire:init(e)
     self.lines,self.points = {},{}
     self.add_wire_animate = fasu(-0.3)
     self.st = vec2(0,0)
-    self.current_wire_dir = vec2(0,0)
+    self.current_wire_dir = vec2(0,0) -- Now useful now.
 end
 
 function wire:draw(s)
@@ -111,7 +111,7 @@ function wire:group_wires(w1,w2)
     local a1 = (s1-e1):angleBetween(vec2(1,0))
     local a2 = (s2-e2):angleBetween(vec2(1,0))
 
-    if a1 ~= a2 then
+    if a1%math.pi ~= a2%math.pi then
         local c1,c2 = self:check_wire_collide(w1,w2)
         if c1 then 
             self:add_point(c1,{w1,w2})
@@ -148,11 +148,11 @@ function wire:touched(t)
             if (ax-tx ~= 0 and (crd.x ~= 0 or crd == vec2(0,0))) or math.abs(ax-tx) > 1 then
                 self:add_line(vec2(ax,ay),vec2(tx,ay))
                 self.st = vec2(t.x,t.y)
-                crd = vec2(ax-tx,0)
+                --crd = vec2(ax-tx,0)
             elseif (ay-ty ~= 0 and (crd.y ~= 0 or crd == vec2(0,0))) or math.abs(ay-ty) > 1 then
                 self:add_line(vec2(ax,ay),vec2(ax,ty))
                 self.st = vec2(t.x,t.y)
-                crd = vec2(0,ay-ty)
+                --crd = vec2(0,ay-ty)
             end
 
         end
