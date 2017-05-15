@@ -145,16 +145,16 @@ function wire:touched(t)
             local tx,ty = math.round((t.x+ec.x)/es),math.round((t.y+ec.y)/es)
             local crd = self.current_wire_dir
 
-            if (ax-tx ~= 0 and (crd.x ~= 0 or crd = vec2(0,0))) or math.abs(ax-tx) > 1 then
+            if (ax-tx ~= 0 and (crd.x ~= 0 or crd == vec2(0,0))) or math.abs(ax-tx) > 1 then
                 self:add_line(vec2(ax,ay),vec2(tx,ay))
                 self.st = vec2(t.x,t.y)
                 crd = vec2(ax-tx,0)
-            elseif (ay-ty ~= 0 and (crd.y ~= 0 or crd = vec2(0,0))) or math.abs(ay-ty) > 1 then
+            elseif (ay-ty ~= 0 and (crd.y ~= 0 or crd == vec2(0,0))) or math.abs(ay-ty) > 1 then
                 self:add_line(vec2(ax,ay),vec2(ax,ty))
                 self.st = vec2(t.x,t.y)
                 crd = vec2(0,ay-ty)
             end
-            
+
         end
     elseif self.add_wire_animate ~= fasu(-1) then
         self.add_wire_animate = fasu(-1)
