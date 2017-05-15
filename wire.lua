@@ -47,10 +47,10 @@ end
 
 function wire:add_point(pos,ws)
     local p;
-    if not self.points[pos] then 
+    if not self.points[pos:unpack()] then 
         p = wire_point(pos,self,{}) 
     else 
-        p = self.points[pos]
+        p = self.points[pos:unpack()]
     end
 
     for k , one_open in pairs(ws) do
