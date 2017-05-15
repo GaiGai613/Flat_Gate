@@ -6,7 +6,7 @@ function wire_point:init(pos,w,opens)
     self.wire = w
     self.opens = opens
 
-    self.wire.points[(self.pos):unpack()] = self
+    self.wire.points[self.pos] = self
 end
 
 function wire_point:draw(s,w)

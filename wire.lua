@@ -5,7 +5,7 @@ function wire:init(e)
     self.lines,self.points = {},{}
     self.add_wire_animate = fasu(-0.3)
     self.st = vec2(0,0)
-    self.current_wire_dir = vec2(0,0) -- Not useful now.
+    self.current_wire_dir = vec2(0,0)
 end
 
 function wire:draw(s)
@@ -47,10 +47,10 @@ end
 
 function wire:add_point(pos,ws)
     local p;
-    if not self.points[pos:unpack()] then 
+    if not self.points[pos] then 
         p = wire_point(pos,self,{}) 
     else 
-        p = self.points[pos:unpack()]
+        p = self.points[pos]
     end
 
     for k , one_open in pairs(ws) do
@@ -143,13 +143,18 @@ function wire:touched(t)
             local es,ec = self.editor.size,self.editor.camera
             local ax,ay = math.round((self.st.x+ec.x)/es),math.round((self.st.y+ec.y)/es)
             local tx,ty = math.round((t.x+ec.x)/es),math.round((t.y+ec.y)/es)
-            if ax-tx ~= 0 then
+            local crd = self.current_wire_dir
+
+            if (ax-tx ~= 0 and (crd.x ~= 0 or crd = vec2(0,0))) or math.abs(ax-tx) > 1 then
                 self:add_line(vec2(ax,ay),vec2(tx,ay))
                 self.st = vec2(t.x,t.y)
-            elseif ay-ty ~= 0 then
+                crd = vec2(ax-tx,0)
+            elseif (ay-ty ~= 0 and (crd.y ~= 0 or crd = vec2(0,0))) or math.abs(ay-ty) > 1 then
                 self:add_line(vec2(ax,ay),vec2(ax,ty))
                 self.st = vec2(t.x,t.y)
+                crd = vec2(0,ay-ty)
             end
+            
         end
     elseif self.add_wire_animate ~= fasu(-1) then
         self.add_wire_animate = fasu(-1)
