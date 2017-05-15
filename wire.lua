@@ -53,13 +53,11 @@ function wire:add_point(pos,ws)
 end
 
 function wire:point_add_open(p,w)
-    local h = 100000
-    local od;
-    if p.pos == w.s then od = w.e else od = w.s end
+    local od = -p.pos;
+    if p.pos == w.s then od = od+w.e else od = od+w.s end
 
-    od = od/h+vec2(1,1)
-    od.x,od.y = math.floor(od.x),math.floor(od.y)
-    od = od-vec2(1,1)
+    if od.x > 0 then od.x = 1 elseif od.x < 0 then od.x = -1 end
+    if od.y > 0 then od.y = 1 elseif od.y < 0 then od.y = -1 end
 
     p.opens[od] = od
 end
