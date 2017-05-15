@@ -46,7 +46,13 @@ function wire:add_line(s,e)
 end
 
 function wire:add_point(pos,ws)
-    local p = wire_point(pos,self,{})
+    local p;
+    if not self.points[pos] then 
+        p = wire_point(pos,self,{}) 
+    else 
+        p = self.points[pos]
+    end
+
     for k , one_open in pairs(ws) do
         self:point_add_open(p,one_open)
     end
@@ -103,7 +109,7 @@ function wire:group_wires(w1,w2)
     local s,e = self:check_group_wires(w1,w2)
     local s1,e1,s2,e2 = w1.s,w1.e,w2.s,w2.e
     local a1 = (s1-e1):angleBetween(vec2(1,0))
-    local a2 = (s2-e1):angleBetween(vec2(1,0))
+    local a2 = (s2-e2):angleBetween(vec2(1,0))
 
     if a1 ~= a2 then
         local c1,c2 = self:check_wire_collide(w1,w2)
