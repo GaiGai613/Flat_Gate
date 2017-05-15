@@ -9,12 +9,12 @@ function wire_point:init(pos,w,opens)
     self.wire.points[self.pos] = self
 end
 
-function wire_point:draw(s,w)
-    local p = self
+function wire_point:draw(s)
+    local w = s/10
     fill(COLOR3)
-    rect(p.x*s,p.y*s,w*3) fill(COLOR2)
-    rect(p.x*s,p.y*s,w)
+    rect(self.x*s,self.y*s,w*3) fill(COLOR2)
+    rect(self.x*s,self.y*s,w)
     for k , d in pairs(self.opens) do
-        rect(p.x*s+d.x*w,p.y*s+d.y*w,w)
+        rect(self.x*s+d.x*w,self.y*s+d.y*w,w)
     end
 end

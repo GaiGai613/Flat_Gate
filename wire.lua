@@ -9,13 +9,12 @@ function wire:init(e)
 end
 
 function wire:draw(s)
-    local w = s/10
     for k , l in pairs(self.lines) do
-        l:draw(s,w)
+        l:draw(s)
     end
     strokeWidth(0) 
     for k , p in pairs(self.points) do
-        p:draw(s,w)
+        p:draw(s)
     end
     
     self:add_animate()

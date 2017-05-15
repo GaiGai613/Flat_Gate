@@ -1,22 +1,27 @@
 not_gate = class()
 
 function not_gate:init(obj)
-    if obj then
-        local s = obj.editor.size
-        self.obj = obj
-        self.update_button_pos() -- Add button.
-    end
     self.width,self.height = 1,1
     self.name,self.type = "NOT GATE","gate"
     self.can_add_to = {"editor"}
     self.gate_id = 1
-    self.wire = wire()
-    self.wire.lines = {{s = vec2(-1,0),e = vec2(1,0)}}
+    if obj then
+        local e = obj.editor
+        local s = e.size
+        self.obj = obj
+        self.update_button_pos() -- Add button.
+        self.wire = wire_line(vec2(-1,0),vec2(1,0),e,#e.wire.lines+1) -- Wire.
+    end
 end
 
-function not_gate:draw(s,x,y)
+function not_gate:draw(s,x,y,info)
     local x,y = (x or 0)*s,(y or 0)*s 
-    translate(x,y) self.wire:draw(s) translate(-x,-y) gdc() -- Wire
+
+    if self.wire then -- Wire.
+        translate(x,y) self.wire:draw(s) translate(-x,-y) 
+    end
+
+    gdc()
     rect(x,y,self.width*s,self.height*s) COLOR2.a = 255 -- Background
     fill(COLOR2) fontSize(s) text("N",x,y) -- "N"
 

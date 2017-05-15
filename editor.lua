@@ -25,8 +25,10 @@ end
 function editor:draw_pre_view(obj,p)
     local s,c = self.size,self.camera
     local p = vec2(math.round((p.x+c.x)/s),math.round((p.y+c.y)/s))*s
+    local info = {editor = self}
+
     translate(-c.x+p.x,-c.y+p.y)
-    obj:draw(s,0,0)
+    obj:draw(s,0,0,info)
     resetMatrix()
 end
 
