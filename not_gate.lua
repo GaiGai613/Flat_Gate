@@ -10,16 +10,14 @@ function not_gate:init(obj)
         local s = e.size
         self.obj = obj
         self:update_button_pos() -- Add button.
-        self.wire = wire_line(vec2(-1,0),vec2(1,0),e,#e.wire.lines+1) -- Wire.
+        self.wire = wire_line(vec2(-1,0),vec2(1,0),e.wire,#e.wire.lines+1) -- Wire.
     end
 end
 
 function not_gate:draw(s,x,y,info)
     local x,y = (x or 0)*s,(y or 0)*s 
 
-    if self.wire then -- Wire.
-        translate(x,y) self.wire:draw(s) translate(-x,-y) 
-    end
+    -- We don't need wire here because it will draw by editor.
 
     gdc()
     rect(x,y,self.width*s,self.height*s) COLOR2.a = 255 -- Background

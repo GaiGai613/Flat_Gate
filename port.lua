@@ -11,17 +11,15 @@ function port:init(obj,t,v)
         local s = e.size
         self.obj = obj
         self:update_button_pos() -- Add button.
-        self.wire = wire_line(vec2(-1,0),vec2(1,0),e,#e.wire.lines+1) -- Wire.
+        self.wire = wire_line(vec2(-1,0),vec2(1,0),e.wire,#e.wire.lines+1) -- Wire.
     end
 end
 
 function port:draw(s,x,y,info)
     local x,y = (x or 0)*s,(y or 0)*s 
     local wx = x if self.type == "OUTPUT" then wx = wx-s end
-    
-    if self.wire then -- Wire.
-        translate(x,y) self.wire:draw(s) translate(-x,-y) 
-    end    
+
+    -- We don't need wire here because it will draw by editor.
 
     gdc()
     rect(x,y,s) COLOR2.a = 255 fill(COLOR2) fontSize(s)
