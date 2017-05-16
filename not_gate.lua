@@ -8,9 +8,10 @@ function not_gate:init(obj)
     if obj then
         local e = obj.editor
         local s = e.size
+        local p = vec2(obj.x,obj.y)
         self.obj = obj
         self:update_button_pos() -- Add button.
-        self.wire = wire_line(vec2(-1,0),vec2(1,0),e.wire,#e.wire.lines+1) -- Wire.
+        self.wire = wire_line(vec2(-1,0)+p,vec2(1,0)+p,e.wire,#e.wire.lines+1) -- Wire.
     end
 end
 
