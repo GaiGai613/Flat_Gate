@@ -6,7 +6,9 @@ function wire_point:init(pos,w,opens)
     self.wire = w
     self.opens = opens
 
-    self.wire.points[self.pos] = self
+    local t = self.wire.points
+    if not t[self.x] then t[self.x] = {} end
+    t[self.x][self.y] = self
 end
 
 function wire_point:draw(s)

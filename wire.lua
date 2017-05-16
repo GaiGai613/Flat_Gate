@@ -13,8 +13,11 @@ function wire:draw(s)
         l:draw(s)
     end
     strokeWidth(0) 
-    for k , p in pairs(self.points) do
-        p:draw(s)
+
+    for k , xp in pairs(self.points) do
+        for j , p in pairs(xp) do
+            p:draw(s)
+        end
     end
     
     self:add_animate()
@@ -46,10 +49,12 @@ end
 
 function wire:add_point(pos,ws)
     local p;
-    if not self.points[pos] then 
+    if self.points[pos.x] then 
+        p = self.points[pos.x][pos.y]
+    end
+
+    if not p then
         p = wire_point(pos,self,{}) 
-    else 
-        p = self.points[pos]
     end
 
     for k , one_open in pairs(ws) do

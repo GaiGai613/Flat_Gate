@@ -6,12 +6,17 @@ function port:init(obj,t,v)
     self.value = v or 0 self.gate_id = 100
     self.width,self.height = 1,1
     self.wire = wire() self.wire.lines = {{s = vec2(0,0),e = vec2(1,0)}}
+    
     if obj then
         local e = obj.editor
         local s = e.size
+        local p = vec2(obj.x,obj.y)
+
+        if self.type == "OUTPUT" then p = p+vec2(-1,0) end
+
         self.obj = obj
         self:update_button_pos() -- Add button.
-        self.wire = wire_line(vec2(-1,0)+p,vec2(1,0)+p,e.wire,#e.wire.lines+1) -- Wire.
+        self.wire = wire_line(vec2(0,0)+p,vec2(1,0)+p,e.wire,#e.wire.lines+1) -- Wire.
     end
 end
 
