@@ -58,13 +58,15 @@ function wire:add_point(pos,ws)
     end
 
     for k , one_open in pairs(ws) do
-        self:point_add_open(p,one_open)
+        self:point_add_open(p,one_open.s)
+        self:point_add_open(p,one_open.e)
     end
 end
 
-function wire:point_add_open(p,w)
+function wire:point_add_open(p,op)
     local od = -p.pos;
-    if p.pos == w.s then od = od+w.e else od = od+w.s end
+
+    od = od+op
 
     if od.x > 0 then od.x = 1 elseif od.x < 0 then od.x = -1 end
     if od.y > 0 then od.y = 1 elseif od.y < 0 then od.y = -1 end
