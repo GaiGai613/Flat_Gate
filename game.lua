@@ -27,6 +27,7 @@ function game:draw()
         self.current_editor:update()
         self.current_editor:draw()
         files:draw()
+        ui:display_camera_pos(self.current_editor)
     end
 end
 

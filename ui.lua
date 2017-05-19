@@ -33,7 +33,7 @@ function ui:display_camera_pos(e)
     fill(COLOR2) fontSize(s.pos) textMode(CORNER)
     local t = "("..(p.x)..","..(p.y)..")"
     local w,h = textSize(t)
-    text("("..(p.x)..","..(p.y)..")",WIDTH-w,HEIGHT-h)
+    text(t,WIDTH-w,HEIGHT-h)
     textMode(CENTER)
 
     -- Change pos animate.
