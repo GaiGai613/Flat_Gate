@@ -14,11 +14,11 @@ function ui:draw_editor(e,c)
     local x,y = e.camera.x,e.camera.y
     local tl = 4
     for px = 1 , WIDTH/s do
-        if math.floor(px+x/s)%tl == 0 then strokeWidth(2) else strokeWidth(1) end
+        --if math.floor(px+x/s)%tl == 0 then strokeWidth(2) else strokeWidth(1) end
         line(px*s-x%s,-10,px*s-x%s,HEIGHT+10)
     end
     for py = 1 , HEIGHT/s do
-        if math.floor(py+y/s)%tl == 0 then strokeWidth(2) else strokeWidth(1) end
+        --if math.floor(py+y/s)%tl == 0 then strokeWidth(2) else strokeWidth(1) end
         line(-10,py*s-y%s,WIDTH+10,py*s-y%s)
     end
     c.a = 255
