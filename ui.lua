@@ -25,13 +25,12 @@ function ui:draw_editor(e,c)
 end
 
 function ui:display_camera_pos(e)
-
     self.display_camera_pos_animate:update()
 
     local c = e.camera
     local p = vec2(math.roundTo(c.x,e.size),math.roundTo(c.y,e.size))
     local s = self.display_camera_pos_animate
-    fill(COLOR2) fontSize(s) textMode(CORNER)
+    fill(COLOR2) fontSize(s.pos) textMode(CORNER)
     local t = "("..(p.x)..","..(p.y)..")"
     local w,h = textSize(t)
     text("("..(p.x)..","..(p.y)..")",WIDTH-w,HEIGHT-h)
