@@ -1,8 +1,7 @@
 ui = class()
 
 function ui:init()
-    self.display_camera_pos_animate = fasu(HEIGHT/20)
-    self.display_camera_pos_value = vec2(0,0)
+    
 end
 
 function ui:draw_editor(e,c)
@@ -25,28 +24,13 @@ function ui:draw_editor(e,c)
 end
 
 function ui:display_camera_pos(e)
-    self.display_camera_pos_animate:update()
-
     local c = e.camera
     local p = vec2(math.roundTo(c.x,e.size),math.roundTo(c.y,e.size))
-    local s = self.display_camera_pos_animate
-    fill(COLOR2) fontSize(s.pos) textMode(CORNER)
+    fill(COLOR2) fontSize(HEIGHT/24) textMode(CORNER)
     local t = "("..(p.x)..","..(p.y)..")"
     local w,h = textSize(t)
     text(t,WIDTH-w,HEIGHT-h)
     textMode(CENTER)
-
-    -- Change pos animate.
-    local sp = self.display_camera_pos_value
-    if p.x ~= sp.x or p.y ~= sp.y then
-        local ap = self.display_camera_pos_animate
-        ap = flat_animate(ap.pos,HEIGHT/18,0.1)
-        tween.delay(0.1,function()
-            ap = flat_animate(ap.pos,HEIGHT/20,0.1)
-        end
-        )
-        sp = p
-    end
 end
 
 function ui:display_obj_info(obj)

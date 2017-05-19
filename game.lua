@@ -18,16 +18,17 @@ function game:init(n)
 end
 
 function game:draw()
+    local ce = self.current_editor
     game:update()
-    game.current_editor.camera:draw() -- Animation for the camera.
+    ce.camera:draw() -- Animation for the camera.
     background(255)
     if self.scene == "edit" then
-        if not self.current_editor then self.current_editor = self.main_editor end
+        if not self.ce then self.ce = self.main_editor end
         files:update()
-        self.current_editor:update()
-        self.current_editor:draw()
+        self.ce:update()
+        self.ce:draw()
         files:draw()
-        ui:display_camera_pos(self.current_editor)
+        if ce.camera.moving then ui:display_camera_pos(self.ce) end
     end
 end
 

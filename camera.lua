@@ -20,8 +20,10 @@ function _camera:check_can_move(t)
 end
 
 function _camera:touched(t)
+    self.moving = false
     if self.move and tap_count == 1 and self:check_can_move(t) then
         self.x,self.y = self.x-t.deltaX,self.y-t.deltaY
+        self.moving = true
     end
     self.apos.pos = vec2(self.x,self.y)
     if t.state == ENDED then 
