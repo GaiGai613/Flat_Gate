@@ -21,6 +21,7 @@ end
 
 function _camera:touched(t)
     if self.move and tap_count == 1 and self:check_can_move(t) then
+        ui:display_camera_pos(self.editor)
         self.x,self.y = self.x-t.deltaX,self.y-t.deltaY
     end
     self.apos.pos = vec2(self.x,self.y)
