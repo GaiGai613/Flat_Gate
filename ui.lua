@@ -25,7 +25,7 @@ end
 
 function ui:display_camera_pos(e)
     local c = e.camera
-    local p = vec2(math.roundTo(c.x,e.size),math.roundTo(c.y,e.size))
+    local p = vec2(math.round(c.x/e.size),math.round(c.y/e.size))
     fill(COLOR2) fontSize(HEIGHT/24) textMode(CORNER)
     local t = "("..(p.x)..","..(p.y)..")"
     local w,h = textSize(t)
