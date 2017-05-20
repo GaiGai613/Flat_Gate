@@ -11,6 +11,8 @@ classes = {
 {name = "lever",type = ".lua"},
 {name = "Main",type = ".lua"},
 {name = "not_gate",type = ".lua"},
+{name = "obj_model_editor",type = ".lua"},
+{name = "obj_model_ui_editor",type = ".lua"},
 {name = "port",type = ".lua"},
 {name = "ui",type = ".lua"},
 {name = "ui_editor",type = ".lua"},
