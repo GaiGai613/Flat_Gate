@@ -29,6 +29,10 @@ function port:draw(s,x,y,info)
     gdc()
     rect(x,y,s) COLOR2.a = 255 fill(COLOR2) fontSize(s)
     text(string.sub(self.type,1,1),x,y)
+    if self.button then flat_ui:button_draw(self.button) end
+    if self.button.pressed then
+        if tap_count == 1 then game.selected = self end
+    end 
 end
 
 function port:update_button_pos()

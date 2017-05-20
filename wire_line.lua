@@ -19,8 +19,11 @@ function wire_line:draw(s)
     
     if self.button then flat_ui:button_draw(self.button) end
 
-    if CurrentTouch.state == BEGAN then self.selected = false end
-    if self.button.pressed and tap_count == 1 then self.selected = true end
+    -- Button update.
+    if self.button then flat_ui:button_draw(self.button) end
+    if self.button.pressed then
+        if tap_count == 1 then game.selected = self end
+    end 
 end
 
 function wire_line:move(v)

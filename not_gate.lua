@@ -20,13 +20,16 @@ end
 function not_gate:draw(s,x,y,info)
     local x,y = (x or 0)*s,(y or 0)*s 
 
-    -- We don't need wire here because it will draw by editor.
+    -- We don't need draw wire here cause it will draw by editor.
 
     gdc()
     rect(x,y,self.width*s,self.height*s) COLOR2.a = 255 -- Background
     fill(COLOR2) fontSize(s) text("N",x,y) -- "N"
 
     if self.button then flat_ui:button_draw(self.button) end
+    if self.button.pressed then
+        if tap_count == 1 then game.selected = self end
+    end 
 end
 
 function not_gate:update()

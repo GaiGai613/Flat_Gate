@@ -9,7 +9,7 @@ function game:init(n)
     self.contains = {}
     self.files = {obj = self,open = fasu()}
     self.current_editor = self.main_editor --self.ui_editor -- Just for test.
-    
+
     -- Add objs to game.
     game:add_obj(self.main_editor,self.contains)
     game:add_obj(self.ui_editor,self.contains)
@@ -27,9 +27,15 @@ function game:draw()
         files:update()
         self.ce:update()
         self.ce:draw()
+        game:draw_select_obj()
         files:draw()
         if ce.camera.moving then ui:display_camera_pos(self.ce) end
     end
+end
+
+function game:draw_select_obj()
+    if not self.selected then return end
+    ui:display_select_obj(self.selected)
 end
 
 function game:update()

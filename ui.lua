@@ -35,6 +35,19 @@ function ui:display_camera_pos(e)
     textMode(CENTER)
 end
 
+function ui:display_select_obj(obj) 
+    if not obj.button then return end
+
+    local e,b = obj.button,obj.editor
+    local s = e.size
+    local x,y = b.x,b.y,vec2(b.x,b.y)
+    local w,h = b.w,b.h
+
+    strokeWidth(3) stroke(COLOR3)
+    fill(255,20)
+    rect(x*s,y*s,w*s,h*s)
+end
+
 function ui:display_obj_info(obj)
     
 end

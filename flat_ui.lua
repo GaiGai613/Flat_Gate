@@ -13,13 +13,17 @@ function flat_ui:init()
     ALL = "all" -- Num
     BUTTON,PIC = "button","picture" -- Item
     UP,DOWN = "up","down"
+    
+    _translate = translate
+    _resetMatrix = resetMatrix
+    advance_translate()
 end
 
 function flat_ui:draw()
+    _translated_vector = vec3(0,0,0)
     for k , t in pairs(self.touches) do
         if t.state == ENDED then
             if self.touches_info[t.id].ended then
-                table.insert(self.touch_history,1,{x = t.x,y = t.y,time = ElapsedTime})
                 self.touches[t.id] = nil
                 self.touches_info[t.id] = nil
             else
@@ -31,6 +35,7 @@ function flat_ui:draw()
 end
 
 function flat_ui:touched(t)
+    table.insert(self.touch_history,1,{touch = t,time = ElapsedTime,id = t.id})
     if t.state == BEGAN then
         self.touches_info[t.id] = {start_x = t.x,start_y = t.y}
         tap_count = tap_count+1
@@ -78,9 +83,26 @@ function flat_ui:touch_check_multi_tap(d,tc,x,y,w,h)
     local tc = tc or 2
     
     for k , t in pairs(self.touch_history) do
-        if t.time < min_time then return false end
-        if flat_ui:touch_check_one_rect(x,y,w,h,t) then tap_time = tap_time+1 end
-        if tap_time == tc then return true end
+        if t.touch.state == ENDED then
+            if t.time < min_time then return false end
+            if flat_ui:touch_check_one_rect(x,y,w,h,t.touch) then tap_time = tap_time+1 end
+            if tap_time == tc then return true end
+        end
+    end
+    return false
+end
+
+function flat_ui:touch_check_soft_tap(x,y,w,h,time)
+    local time = time or 0.2
+    local ct = flat_ui:touch_check_rect(x,y,w,h,BUTTON)
+    if ct and self.touches_info[ct.id].ended then
+        for k , t in pairs(self.touch_history) do
+            if t.touch.state == BEGAN and ElapsedTime-t.time <= time then
+                if flat_ui:touch_check_one_rect(x,y,w,h,t.touch) then
+                    return true
+                end
+            end
+        end
     end
     return false
 end
@@ -364,3 +386,15 @@ function math.round(n)
     end
 end
 
+function advance_translate()
+    translate = function(x,y,z)
+        _translate(x or 0,y or 0,z or 0)
+        _translated_vector = (_translated_vector or vec3(0,0,0))+vec3(x,y,z)
+        return _translated_vector:unpack()
+    end
+    resetMatrix = function()
+        _resetMatrix()
+        _translates_vector = vec3(0,0,0)
+        return vec3(0,0,0)
+    end
+end

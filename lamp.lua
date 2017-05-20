@@ -19,12 +19,28 @@ function lamp:draw(s,x,y)
     strokeWidth(0) fill(COLOR2+color(-30))
     rect(x,y,s) if self.value == 0 then fill(COLOR2+color(10)) else fill(235, 214, 67, 255) end
     rect(x,y,s*0.8)
+
+    -- Button update.
+    if self.button then flat_ui:button_draw(self.button) end
+    if self.button.pressed then
+        if tap_count == 1 then game.selected = self end
+    end 
 end
 
 function lamp:update()
     if self.input then
         self.value = self.input.value
     end
+end
+
+function lamp:update_button_pos()
+    if not self.obj.editor then return end
+    if not self.button then self.button = flat_ui:add_button(0,0,0,0,color(0,0)) end
+    local ed = self.obj.editor
+    local pos = vec2(self.obj.x,self.obj.y)*ed.size
+    
+    self.button.x,self.button.y = pos:unpack()
+    self.button.width,self.button.height = self.width*ed.size,self.height*ed.size
 end
 
 function lamp:touched(t)

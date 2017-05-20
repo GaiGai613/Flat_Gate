@@ -72,6 +72,14 @@ function files:display_files(t,n)
     local co = not(t.obj.contains == nil) -- If there is the "contains" array.
     
     -- Touch checks.
+    if self.current_on == t then
+        if flat_ui:touch_check_soft_tap(WIDTH/2,HEIGHT/2,WIDTH,HEIGHT) and t.open and _t.state == BEGAN and _t.x <= self.width+self.x then
+            t.open = flat_animate(t.open.pos,math.ceil(-t.open.pos/90)*90-90,0.2)
+        elseif _t.state == MOVING then
+            self.dragging = true -- Moving the obj.
+        end
+    end
+
     if tap_count == 1 and self.current_on == nil then 
         if _t.x < self.width+self.x-WIDTH/160 then
             local cy = self.dis_hei*-h+HEIGHT-h*2
@@ -80,14 +88,6 @@ function files:display_files(t,n)
             end
         end
     elseif tap_count == 0 then self.current_on = nil self.dragging = false end
-    
-    if self.current_on == t then
-        if flat_ui:touch_check_multi_tap(0.2,1) and t.open and _t.state == BEGAN and _t.x <= self.width+self.x then
-            t.open = flat_animate(t.open.pos,math.ceil(-t.open.pos/90)*90-90,0.2)
-        elseif _t.state == MOVING then
-            self.dragging = true -- Moving the obj.
-        end
-    end
     
     if co then t.open:update() end -- Update arrow animation.
     
