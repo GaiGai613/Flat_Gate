@@ -87,7 +87,11 @@ function files:display_files(t,n)
                 self.current_on = t
             end
         end
-    elseif tap_count == 0 then self.current_on = nil self.dragging = false end
+    elseif tap_count == 0 then 
+        tween.delay(DeltaTime,function()
+            self.current_on = nil self.dragging = false
+        end)
+    end
     
     if co then t.open:update() end -- Update arrow animation.
     
