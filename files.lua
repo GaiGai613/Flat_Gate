@@ -34,13 +34,13 @@ function files:draw()
 
         self.current_on = nil
     elseif self.dragging then
+        local t = flat_ui:get_any_same_touch()
         if tap_count == 2 and self.current_on.obj.open then
             local td = flat_ui:touch_check_move().y
             self.bgc = math.min(self.bgc+math.min(td,0)/300,1)
             fill(0,50*self.bgc) strokeWidth(0)
             rect(WIDTH/2,HEIGHT/2,WIDTH,HEIGHT)
-        else
-            local t = flat_ui:get_any_same_touch()
+        elseif t then
             if t.x > self.width+sw and self.current_on.obj.width and game:check_can_add_obj(self.current_on.obj,game.current_editor.type) then 
                 clip(self.width+sw,0,WIDTH,HEIGHT) -- Pre view for the obj.
                 game.current_editor:draw_pre_view(self.current_on.obj,t) clip()
@@ -75,16 +75,18 @@ function files:display_files(t,n)
     local cy = self.dis_hei*-h+HEIGHT-h*2
     local cw = self.width+self.x
     if self.current_on == t then 
-        if flat_ui:touch_check_soft_tap(cw/2,cy+h/2,cw,h) and t.open and tap_count == 1 then
+        if flat_ui:touch_check_soft_tap(cw/2,cy+h/2,cw,h) and t.open then
             t.open = flat_animate(t.open.pos,math.ceil(-t.open.pos/90)*90-90,0.2)
         elseif _t.state == MOVING and flat_ui:touch_check_rect(cw/2,cy+h/2,cw,h,TOUCH) then
             self.dragging = true -- Moving the obj.
         end
     end
 
-    if tap_count == 1 and flat_ui:touch_check_soft_tap(cw/2,cy+h/2,cw,h) then 
+    if flat_ui:touch_check_soft_tap(cw/2,cy+h/2,cw,h) then 
         self.current_on = t
-    elseif self.current_on ~= t then self.dragging = false end
+    elseif tap_count ~= 0 then
+        self.current_on = nil
+    end
     
     if co then t.open:update() end -- Update arrow animation.
     
