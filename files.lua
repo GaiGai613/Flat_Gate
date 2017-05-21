@@ -72,26 +72,19 @@ function files:display_files(t,n)
     local co = not(t.obj.contains == nil) -- If there is the "contains" array.
     
     -- Touch checks.
-    if self.current_on == t then
-        if flat_ui:touch_check_multi_tap(0.3,1) and t.open and _t.state == BEGAN and _t.x <= self.width+self.x then
+    local cy = self.dis_hei*-h+HEIGHT-h*2
+    local cw = self.width+self.x
+    if self.current_on == t then 
+        if flat_ui:touch_check_soft_tap(cw/2,cy+h/2,cw,h) and t.open and tap_count == 1 then
             t.open = flat_animate(t.open.pos,math.ceil(-t.open.pos/90)*90-90,0.2)
-        elseif _t.state == MOVING then
+        elseif _t.state == MOVING and flat_ui:touch_check_rect(cw/2,cy+h/2,cw,h,TOUCH) then
             self.dragging = true -- Moving the obj.
         end
     end
 
-    if tap_count == 1 and self.current_on == nil then 
-        if _t.x < self.width+self.x-WIDTH/160 then
-            local cy = self.dis_hei*-h+HEIGHT-h*2
-            if _t.y >= cy and _t.y <= cy+h then
-                self.current_on = t
-            end
-        end
-    elseif tap_count == 0 then 
-        tween.delay(1,function()
-            self.current_on = nil self.dragging = false
-        end)
-    end
+    if tap_count == 1 and flat_ui:touch_check_soft_tap(cw/2,cy+h/2,cw,h) then 
+        self.current_on = t
+    elseif self.current_on ~= t then self.dragging = false end
     
     if co then t.open:update() end -- Update arrow animation.
     
