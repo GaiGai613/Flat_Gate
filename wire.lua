@@ -139,7 +139,7 @@ end
 
 function wire:touched(t)
     if tap_count == 1 then
-        if t.state == BEGAN then
+        if t.state == BEGAN and t.x > files.width+WIDTH/80+files.x then
             self.st = vec2(t.x,t.y)
             self.add_wire_animate = flat_animate(-1,1,0.8)
         elseif self.add_wire_animate.pos < 0 then
