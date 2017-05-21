@@ -70,11 +70,12 @@ function files:display_files(t,n)
     local w,h = WIDTH/30,HEIGHT/30
     local _t = CurrentTouch
     local co = not(t.obj.contains == nil) -- If there is the "contains" array.
-    local tc = flat_ui:touch_check_rect(cw/2,cy+h/2,cw,h,TOUCH)
     
     -- Touch checks.
     local cy = self.dis_hei*-h+HEIGHT-h*2
     local cw = self.width+self.x
+    local tc = flat_ui:touch_check_rect(cw/2,cy+h/2,cw,h,TOUCH)
+
     if self.current_on == t then 
         if flat_ui:touch_check_soft_tap(cw/2,cy+h/2,cw,h) and t.open then
             t.open = flat_animate(t.open.pos,math.ceil(-t.open.pos/90)*90-90,0.2)
@@ -85,7 +86,7 @@ function files:display_files(t,n)
 
     if flat_ui:touch_check_soft_tap(cw/2,cy+h/2,cw,h) then 
         self.current_on = t
-    elseif tap_count == 1 and _t.state == BEGAN and tc then
+    elseif tap_count == 1 and _t.state == BEGAN and not tc then
         self.current_on = nil
     end
     
