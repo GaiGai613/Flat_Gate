@@ -3,16 +3,12 @@ displayMode(OVERLAY) displayMode(FULLSCREEN)
 parameter.watch("1/DeltaTime")
 sprite()
 
-if not readLocalData("VERSION") then saveLocalData("VERSION","Beta 0.1.0") end
-
 --DEVELOPMODE = false
 
-VERSION = readLocalData("VERSION")
--- REDOWNLOAD = true -- Download again.
 TRYUPDATE = false
 
 function setup()
-    if TRYUPDATE or REDOWNLOAD then download() end -- Only for vsc develop mode.
+    if TRYUPDATE then download() end
     cwg() -- Setup set var.
     input_images()
     rectMode(CENTER) font("GillSans-Light")
