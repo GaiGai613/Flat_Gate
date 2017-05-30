@@ -39,19 +39,19 @@ function ui:display_camera_pos(e)
     textMode(CENTER)
 end
 
-function ui:display_selecting_obj(obj)
+function ui:display_selecting_obj()
     if self.display_selecting_obj_animate.pos == vec4(-10,-10,WIDTH+20,HEIGHT+20) and not game.selecting_obj then return end
 
     local dsoa = self.display_selecting_obj_animate
     dsoa:update()
 
-    --Setup.
     local obj = game.selecting_obj
-    if obj then
-        local t = flat_ui:get_any_same_touch()
-        local b,e = obj.button or obj,obj.editor or {size = game.current_editor.size}
-        local x,y,w,h = b.x,b.y,b.w,b.h
-    end
+    if not obj then return end
+
+    --Setup.
+    local t = flat_ui:get_any_same_touch()
+    local b,e = obj.button or obj,obj.editor or {size = game.current_editor.size}
+    local x,y,w,h = b.x,b.y,b.w,b.h
 
     --Change destination.
     if game.selecting_obj and dsoa.pos == vec4(-10,-10,WIDTH+20,HEIGHT+20) then
