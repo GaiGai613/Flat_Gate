@@ -19,7 +19,7 @@ function files:draw()
     -- Draw files
     local w,h = WIDTH/30,HEIGHT/30
     fontSize(h) textMode(CORNER) rectMode(CORNER)
-    translate(w*1.5,HEIGHT-h*2) stroke(COLOR4) 
+    translate(w*1.5+WIDTH/70,HEIGHT-h*2) stroke(COLOR4) 
     clip(self.x,0,self.width-sw/2,HEIGHT)
     self.dis_hei = -1
     files:display_files(game.files,self.dis_hei) -- Game files
@@ -96,23 +96,24 @@ function files:display_files(t,n)
     if files_icons[t.obj.type] then i = files_icons[t.obj.type] else i = image(0,0) end
     fill(COLOR2+color(-10))
     strokeWidth(0)
+
+    local sh = h-HEIGHT/80
+    local ow = -WIDTH/90
     if self.current_on ~= t then 
-        local rw = textSize(t.obj.name..("l"))
+        local rw = textSize(t.obj.name)
+        rw = rw+WIDTH/40
         rect(-h,0,rw+h,h) 
     else
         local _,nh = textSize(t.obj.name)
         rect(-WIDTH*3,0,WIDTH*6,nh)
     end
-    
-    local sh = h-HEIGHT/100
-    local ow = -WIDTH/90
-    translate(-WIDTH/100,0)
-    strokeWidth(2)
+
+    strokeWidth(0)
     sprite(i,ow,h/2,sh)
-    if co then pushMatrix() translate(-sh,0) rotate(t.open.pos) -- Draw point arrow.
-    sprite(sprites["open_arrow"],0,h/2,sh) end popMatrix() fill(COLOR4) 
+    if co then pushMatrix() translate(0,0) rotate(t.open.pos) -- Draw point arrow.
+    sprite(sprites["open_arrow"],-sh*2.3,h/2,sh-WIDTH/200) end popMatrix() fill(COLOR4) 
     text(t.obj.name,0,0)
-    translate(WIDTH/100,-h)
+    translate(0,-h)
     
     -- Read files inside
     if co then if t.open.pos == 0 then return end
