@@ -99,19 +99,20 @@ function files:display_files(t,n)
 
     local sh = h-HEIGHT/80
     local ow = -WIDTH/90
-    if self.current_on ~= t then 
-        local rw = textSize(t.obj.name)
-        rw = rw+WIDTH/40
-        rect(-h,0,rw+h,h) 
+    local rw = textSize(t.obj.name)+WIDTH/40
+
+    if self.current_on ~= t then
+        rect(-h,0,rw+h,h)
     else
-        local _,nh = textSize(t.obj.name)
-        rect(-WIDTH*3,0,WIDTH*6,nh)
+        local _sx,_sy = -h+(rw+h)/2,h/2
+        local _sw,_sh = rw+h,h
+        game.selecting_obj = {x = _sx,y = _sy,w = _sw,h = _sh}
     end
 
     strokeWidth(0)
     sprite(i,ow,h/2,sh)
-    if co then pushMatrix() translate(0,0) rotate(t.open.pos) -- Draw point arrow.
-    sprite(sprites["open_arrow"],-sh*2.3,h/2,sh-WIDTH/200) end popMatrix() fill(COLOR4) 
+    if co then pushMatrix() translate(-sh*2.3,h/2) rotate(t.open.pos) -- Draw point arrow.
+    sprite(sprites["open_arrow"],0,0,sh-WIDTH/200) end popMatrix() fill(COLOR4) 
     text(t.obj.name,0,0)
     translate(0,-h)
     
