@@ -92,8 +92,8 @@ function files:display_files(t,n)
     
     if co then t.open:update() end -- Update arrow animation.
     
-    local i = image(0,0)
-    if files_icons[t.obj.type] then i = files_icons[t.obj.type] end
+    local i
+    if files_icons[t.obj.type] then i = files_icons[t.obj.type] else i = image(0,0) end
     fill(COLOR2+color(-10))
     strokeWidth(0)
     if self.current_on ~= t then 
@@ -104,13 +104,15 @@ function files:display_files(t,n)
         rect(-WIDTH*3,0,WIDTH*6,nh)
     end
     
-    local sh = h-HEIGHT/40
+    local sh = h-HEIGHT/100
+    local ow = -WIDTH/90
+    translate(-WIDTH/100,0)
     strokeWidth(2)
-    sprite(i,-WIDTH/100,WIDTH/68,sh)
-    if co then pushMatrix() translate(-sh,WIDTH/68) rotate(t.open.pos) -- Draw point arrow.
-    sprite(sprites["open_arrow"],0,0,sh) end popMatrix() fill(COLOR4) 
+    sprite(i,ow,h/2,sh)
+    if co then pushMatrix() translate(-sh,0) rotate(t.open.pos) -- Draw point arrow.
+    sprite(sprites["open_arrow"],0,h/2,sh) end popMatrix() fill(COLOR4) 
     text(t.obj.name,0,0)
-    translate(0,-h)
+    translate(WIDTH/100,-h)
     
     -- Read files inside
     if co then if t.open.pos == 0 then return end

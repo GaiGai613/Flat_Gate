@@ -35,8 +35,8 @@ function input_images()
     setContext(i)
     translate(w/2,w/2)
     stroke(COLOR4) strokeWidth(8)
-    line(-w/4,w/3,w/3,0)
-    line(-w/4,-w/3,w/3,0)
+    line(-w/2,w/2,w/2,0)
+    line(-w/2,-w/2,w/2,0)
     setContext()
     sprites["open_arrow"] = i
 end
