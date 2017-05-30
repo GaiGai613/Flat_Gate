@@ -1,7 +1,11 @@
 ui = class()
 
 function ui:init()
-    
+    self.display_selecting_obj_animate = fasu(vec4(-10,-10,WIDTH+20,HEIGHT+20))
+end
+
+function ui:draw_game()
+    self:display_selecting_obj()
 end
 
 function ui:draw_editor(e,c)
@@ -35,17 +39,38 @@ function ui:display_camera_pos(e)
     textMode(CENTER)
 end
 
-function ui:display_select_obj(obj) 
-    if not obj.button then return end
+function ui:display_selecting_obj(obj)
+    if self.display_selecting_obj_animate.pos == vec4(-10,-10,WIDTH+20,HEIGHT+20) and not game.selecting_obj then return end
 
-    local e,b = obj.button,obj.editor
-    local s = e.size
-    local x,y = b.x,b.y,vec2(b.x,b.y)
-    local w,h = b.w,b.h
+    local dsoa = self.display_selecting_obj_animate
+    dsoa:update()
 
+    --Setup.
+    local obj = game.selecting_obj
+    if obj then
+        local t = flat_ui:get_any_same_touch()
+        local b,e = obj.button or obj,obj.editor or {size = game.current_editor.size}
+        local x,y,w,h = b.x,b.y,b.w,b.h
+    end
+
+    --Change destination.
+    if game.selecting_obj and dsoa.pos == vec4(-10,-10,WIDTH+20,HEIGHT+20) then
+        local ad = vec4(x-w/2,y-h/2,w,h)
+        dsoa = flat_animate(dsoa.pos,ad,0.1)
+    else
+        local ad = vec4(-10,-10,WIDTH+20,HEIGHT+20)
+        dsoa = flat_animate(dsoa.pos,ad,0.1)
+    end
+
+    --Draw all the lines.
     strokeWidth(3) stroke(COLOR3)
-    fill(255,20)
-    rect(x*s,y*s,w*s,h*s)
+    local dop = dsoa.pos
+    local points = {vec(dop.x,dop.y),vec2(dop.x,dop.y+dop.w),vec2(dop.x+dop.z,dop.y+dop.w),vec2(dop.x+dop.z,dop.y)}
+    for k , point in pairs(points) do
+        local x1,y1 = point:unpack()
+        local x2,y2 = (points[k%#points+1]):unpack()
+        line(x1,y1,x2,y2)
+    end
 end
 
 function ui:display_obj_info(obj)

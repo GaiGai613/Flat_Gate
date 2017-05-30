@@ -14,7 +14,7 @@ function files:draw()
     local sw = WIDTH/160
     if self.touching_side then sw = WIDTH/100 end
     fill(COLOR2) rect(self.width/2,HEIGHT/2,self.width,HEIGHT)
-    fill(COLOR4) rect(self.width+WIDTH/320,HEIGHT/2,sw,HEIGHT)
+    fill(COLOR4) rect(self.width+aw0,HEIGHT/2,sw,HEIGHT)
     
     -- Draw files
     local w,h = WIDTH/30,HEIGHT/30
@@ -67,7 +67,8 @@ end
 
 function files:display_files(t,n) 
     self.dis_hei = self.dis_hei+1 
-    local w,h = WIDTH/30,HEIGHT/30
+    local w,__nu,h = WIDTH/30,fontSize("l")
+    local aw = WIDTH/32
     local _t = CurrentTouch
     local co = not(t.obj.contains == nil) -- If there is the "contains" array.
     
@@ -96,15 +97,18 @@ function files:display_files(t,n)
     if files_icons[t.obj.type] then i = files_icons[t.obj.type] end
     fill(COLOR2+color(-10))
     strokeWidth(0)
-    if self.current_on ~= t then rect(-WIDTH/32-WIDTH/100,0,textSize((t.obj.name).."\t\t  ")) else
+    if self.current_on ~= t then 
+        local rw = textSize(t.obj.name)
+        rect(-h,0,rw+h,h) 
+    else
         local _,nh = textSize(t.obj.name)
         rect(-WIDTH*3,0,WIDTH*6,nh)
     end
     
     strokeWidth(2)
-    sprite(i,-WIDTH/100,WIDTH/68,WIDTH/50)
-    if co then pushMatrix() translate(-WIDTH/32,WIDTH/68) rotate(t.open.pos) -- Draw point arrow.
-    sprite(sprites["open_arrow"],0,0,WIDTH/50) end popMatrix() fill(COLOR4) 
+    sprite(i,-WIDTH/100,WIDTH/68,h)
+    if co then pushMatrix() translate(-aw,WIDTH/68) rotate(t.open.pos) -- Draw point arrow.
+    sprite(sprites["open_arrow"],0,0,aw) end popMatrix() fill(COLOR4) 
     text(t.obj.name,0,0)
     translate(0,-h)
     
@@ -115,7 +119,6 @@ function files:display_files(t,n)
             files:display_files(o,self.dis_hei)
         end
         translate(-w,0)
-        
     end
     
 end

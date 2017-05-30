@@ -24,18 +24,24 @@ function game:draw()
     background(255)
     if self.scene == "edit" then
         if not self.ce then self.ce = self.main_editor end
+
         files:update()
+
         self.ce:update()
         self.ce:draw()
-        game:draw_select_obj()
+
+        game:draw_selecting_obj()
         files:draw()
+        ui:draw_game()
+
         if ce.camera.moving then ui:display_camera_pos(self.ce) end
     end
+    
 end
 
-function game:draw_select_obj()
-    if not self.selected then return end
-    ui:display_select_obj(self.selected)
+function game:draw_selecting_obj()
+    if not self.selecting_obj then return end
+    ui:display_selecting_obj(self.selecting_obj)
 end
 
 function game:update()
