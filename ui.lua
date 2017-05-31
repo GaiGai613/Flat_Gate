@@ -48,10 +48,13 @@ function ui:display_selecting_obj()
     local obj = game.selecting_obj
 
     --Setup.
+    local t
+    local b,e
+    local x,y,w,h
     if obj then
-        local t = flat_ui:get_any_same_touch()
-        local b,e = obj.button or obj,obj.editor or {size = game.current_editor.size}
-        local x,y,w,h = b.x,b.y,b.w or b.width,b.h or b.height
+        t = flat_ui:get_any_same_touch()
+        b,e = obj.button or obj,obj.editor or {size = game.current_editor.size}
+        x,y,w,h = b.x,b.y,b.w or b.width,b.h or b.height
     end
 
     --Change destination.
