@@ -46,12 +46,13 @@ function ui:display_selecting_obj()
     dsoa:update()
 
     local obj = game.selecting_obj
-    if not obj then return end
 
     --Setup.
-    local t = flat_ui:get_any_same_touch()
-    local b,e = obj.button or obj,obj.editor or {size = game.current_editor.size}
-    local x,y,w,h = b.x,b.y,b.w,b.h
+    if obj then
+        local t = flat_ui:get_any_same_touch()
+        local b,e = obj.button or obj,obj.editor or {size = game.current_editor.size}
+        local x,y,w,h = b.x,b.y,b.w or b.width,b.h or b.height
+    end
 
     --Change destination.
     if game.selecting_obj and dsoa.contains ~= game.selecting_obj then

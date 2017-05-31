@@ -20,7 +20,7 @@ function files:draw()
     fontSize(h) textMode(CORNER) rectMode(CORNER)
     translate(w*1.5,HEIGHT-h*2) stroke(COLOR4) 
     clip(self.x,0,self.width-sw/2,HEIGHT)
-    self.dis_pos = vec2(1.5,-2)
+    self.dis_pos = vec2(1.5,-1)
     files:display_files(game.files,self.dis_pos) --Game files
     files:display_files(come_with_gates,self.dis_pos) --Come-with functions
     clip() textMode(CENTER) rectMode(CENTER) resetMatrix()
@@ -75,19 +75,25 @@ function files:display_files(t,n)
 
     --Touch checks.
     local _sw,_sh = rw,h
-    local _sx,_sy = w*self.dis_pos.x+_sw/2-sh,h*self.dis_pos.y+_sh/2+HEIGHT
+    local _sx,_sy = w*self.dis_pos.x+_sw/2-sh,h*self.dis_pos.y+_sh*0.75+HEIGHT
     local tc = flat_ui:touch_check_rect(_sx,_sy,_sw,_sh,TOUCH)
 
     if self.current_on == t then
-        game.selecting_obj = {x = _sx,y = _sy,w = _sw,h = _sh}
+        game.selecting_obj = {x = _sx,y = _sy,w = _sw,h = _sh,s = t}
         if flat_ui:touch_check_soft_tap(_sx,_sy,_sw,_sh) and t.open then
             t.open = flat_animate(t.open.pos,math.ceil(-t.open.pos/90)*90-90,0.2)
         elseif _t.state == MOVING and tc then
             self.dragging = true --Moving the obj.
         end
+    else
+        local gso = game.selecting_obj
+        if gso and s == t then
+            game.selecting_obj = nil
+        end
+
     end
 
-    if flat_ui:touch_check_soft_tap(cw/2,cy+h/2,cw,h) then 
+    if flat_ui:touch_check_soft_tap(_sx,_sy,_sw,_sh) then 
         self.current_on = t
     elseif tap_count == 1 and _t.state == BEGAN and not tc then
         self.current_on = nil
