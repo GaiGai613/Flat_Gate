@@ -9,9 +9,9 @@ function flat_ui:init()
     
     noSmooth()
     
-    REMOVE,ADD,TOUCH = "remove","add","touch" -- action
-    ALL = "all" -- Num
-    BUTTON,PIC = "button","picture" -- Item
+    REMOVE,ADD,TOUCH = "remove","add","touch" --action
+    ALL = "all" --Num
+    BUTTON,PIC = "button","picture" --Item
     UP,DOWN = "up","down"
     
     _translate = translate
@@ -344,19 +344,19 @@ function flat_ui:button_draw(button_now)
 end
 
 function flat_ui:check_two_line(l1d,l2d)
-    -- l1d = {vec2(1,1),vec2(2,2)},l2d = {vec2(3,3),vec2(4,4)}
+    --l1d = {vec2(1,1),vec2(2,2)},l2d = {vec2(3,3),vec2(4,4)}
     
-    -- print(l1d[1],l1d[2],l2d[1],l2d[2])
+    --print(l1d[1],l1d[2],l2d[1],l2d[2])
     
     local s1 = (l1d[1].y-l1d[2].y)/(l1d[1].x-l1d[2].x)
     local s2 = (l2d[1].y-l2d[2].y)/(l2d[1].x-l2d[2].x)
     local b1 = l1d[1].y-l1d[1].x*s1
     local b2 = l2d[1].y-l2d[1].x*s2
     
-    --   s1*x+b1=s2*x+b2
-    -- s1*x-s2*x=b2-b1
-    -- (s1-s2)*x=b2-b1
-    --         x=(b2-b1)/(s1-s2)
+    --  s1*x+b1=s2*x+b2
+    --s1*x-s2*x=b2-b1
+    --(s1-s2)*x=b2-b1
+    --        x=(b2-b1)/(s1-s2)
     
     local i = vec2((b2-b1)/(s1-s2),(b2-b1)/(s1-s2)*s1+b1)
     

@@ -5,7 +5,7 @@ function wire:init(e)
     self.lines,self.points = {},{}
     self.add_wire_animate = fasu(-0.3)
     self.st = vec2(0,0)
-    self.current_wire_dir = vec2(0,0) -- Now useful now.
+    self.current_wire_dir = vec2(0,0) --Now useful now.
 end
 
 function wire:draw(s)

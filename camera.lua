@@ -13,8 +13,8 @@ function _camera:draw()
 end
 
 function _camera:check_can_move(t)
-    if not (t.x > files.width+WIDTH/80+files.x) then return false end -- Check files touch.
-    -- Check add wire.
+    if not (t.x > files.width+WIDTH/80+files.x) then return false end --Check files touch.
+    --Check add wire.
     if self.editor.wire then if self.editor.wire.add_wire_animate.pos > 0 then return false end end
     return true
 end

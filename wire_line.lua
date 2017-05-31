@@ -2,7 +2,7 @@ wire_line = class()
 
 function wire_line:init(s,e,w,p)
     self.wire,self.p = w,p
-    self.s,self.e = s,e -- Start, End.
+    self.s,self.e = s,e --Start, End.
     self.wire.lines[p] = self
     self:update_button_pos()
     self.selected = false
@@ -19,7 +19,7 @@ function wire_line:draw(s)
     
     if self.button then flat_ui:button_draw(self.button) end
 
-    -- Button update.
+    --Button update.
     if self.button then flat_ui:button_draw(self.button) end
     if self.button.pressed then
         if tap_count == 1 then game.selected = self end

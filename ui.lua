@@ -82,9 +82,9 @@ function ui:touched(t)
     
 end
 
--- Theme colors.
+--Theme colors.
 COLOR1 = color(255,255,255)
 COLOR2 = color(53,56,60)
 COLOR3 = color(255,145,0)
-COLOR4 = color(89,211,200) -- CAN'T CHANGE.
+COLOR4 = color(89,211,200) --CAN'T CHANGE.
 COLOR5 = color(225, 225, 225, 255)

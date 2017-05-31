@@ -12,19 +12,19 @@ function not_gate:init(obj)
         local p = vec2(obj.x,obj.y)
         
         self.obj = obj
-        self:update_button_pos() -- Add button.
-        self.wire = wire_line(vec2(-1,0)+p,vec2(1,0)+p,e.wire,#e.wire.lines+1) -- Wire.
+        self:update_button_pos() --Add button.
+        self.wire = wire_line(vec2(-1,0)+p,vec2(1,0)+p,e.wire,#e.wire.lines+1) --Wire.
     end
 end
 
 function not_gate:draw(s,x,y,info)
     local x,y = (x or 0)*s,(y or 0)*s 
 
-    -- We don't need draw wire here cause it will draw by editor.
+    --We don't need draw wire here cause it will draw by editor.
 
     gdc()
-    rect(x,y,self.width*s,self.height*s) COLOR2.a = 255 -- Background
-    fill(COLOR2) fontSize(s) text("N",x,y) -- "N"
+    rect(x,y,self.width*s,self.height*s) COLOR2.a = 255 --Background
+    fill(COLOR2) fontSize(s) text("N",x,y) --"N"
 
     if self.button then flat_ui:button_draw(self.button) end
     if self.button.pressed then

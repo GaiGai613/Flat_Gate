@@ -3,14 +3,14 @@ game = class()
 function game:init(n)
     local nml = 100
     self.name,self.type = string.sub(n or "New Gate",1,nml),"project"
-    self.main_editor,self.ui_editor = editor("Main"),ui_editor() -- Setup two main editor.
+    self.main_editor,self.ui_editor = editor("Main"),ui_editor() --Setup two main editor.
     self.scene = "edit"
     self.snap = true
     self.contains = {}
     self.files = {obj = self,open = fasu()}
-    self.current_editor = self.main_editor --self.ui_editor -- Just for test.
+    self.current_editor = self.main_editor --self.ui_editor --Just for test.
 
-    -- Add objs to game.
+    --Add objs to game.
     game:add_obj(self.main_editor,self.contains)
     game:add_obj(self.ui_editor,self.contains)
     
@@ -20,7 +20,7 @@ end
 function game:draw()
     local ce = self.current_editor
     game:update()
-    ce.camera:draw() -- Animation for the camera.
+    ce.camera:draw() --Animation for the camera.
     background(255)
     if self.scene == "edit" then
         if not self.ce then self.ce = self.main_editor end

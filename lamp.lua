@@ -20,7 +20,7 @@ function lamp:draw(s,x,y)
     rect(x,y,s) if self.value == 0 then fill(COLOR2+color(10)) else fill(235, 214, 67, 255) end
     rect(x,y,s*0.8)
 
-    -- Button update.
+    --Button update.
     if self.button then flat_ui:button_draw(self.button) end
     if self.button.pressed then
         if tap_count == 1 then game.selected = self end

@@ -4,7 +4,7 @@ function ui_editor:init()
     self.type,self.name = "ui_editor","U.I. Editor"
     self.files,self.contains = {},{}
     self.objs = {}
-    self.camera = _camera(self) self.camera.move = false -- Camera can't move.
+    self.camera = _camera(self) self.camera.move = false --Camera can't move.
     self.size = math.round(WIDTH/32)
 end
 

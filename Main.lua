@@ -9,7 +9,7 @@ TRYUPDATE = false
 
 function setup()
     if TRYUPDATE then download() end
-    cwg() -- Setup set var.
+    cwg() --Setup set var.
     input_images()
     rectMode(CENTER) font("GillSans-Light")
     flat_ui = flat_ui()
