@@ -97,14 +97,10 @@ function files:display_files(t,n)
     fill(COLOR2+color(-10))
     strokeWidth(0)
 
-    local sh = h-HEIGHT/80
-    local ow = -WIDTH/90
-    local rw = textSize(t.obj.name)+WIDTH/40
-
-    if self.current_on ~= t then
-        rect(-h,0,rw+h,h)
-    else
-        local _sx,_sy = -h+(rw+h)/2,h/2
+    rect(-h,0,rw+h,h)
+    if self.current_on == t then
+        cw/2,cy+h/2,cw,h
+        local _sx,_sy = cw/2+(rw+h)/2,,cy+h/2+h/2
         local _sw,_sh = rw+h,h
         game.selecting_obj = {x = _sx,y = _sy,w = _sw,h = _sh}
     end
