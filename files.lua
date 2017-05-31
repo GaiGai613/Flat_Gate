@@ -18,9 +18,9 @@ function files:draw()
     -- Draw files
     local w,h = WIDTH/30,HEIGHT/30
     fontSize(h) textMode(CORNER) rectMode(CORNER)
-    translate(w*2,HEIGHT) stroke(COLOR4) 
+    translate(w*1.5,HEIGHT) stroke(COLOR4) 
     clip(self.x,0,self.width-sw/2,HEIGHT)
-    self.dis_pos = vec2(0,-2)
+    self.dis_pos = vec2(1.5,0)
     files:display_files(game.files,self.dis_pos) -- Game files
     files:display_files(come_with_gates,self.dis_pos) -- Come-with functions
     clip() textMode(CENTER) rectMode(CENTER) resetMatrix()
@@ -96,24 +96,23 @@ function files:display_files(t,n)
     fill(COLOR2+color(-10))
     strokeWidth(0)
 
-    translate(-h/4)
+    local sh = h*0.6
     local ow = -WIDTH/90
-    local rw = textSize(t.obj.name)+WIDTH/40
+    local rw = textSize(t.obj.name)+h
 
-    rect(-h,0,rw+w,h)
+    rect(-sh,0,rw,h)
     if self.current_on == t then
-        local _sw,_sh = rw+w,h
+        local _sw,_sh = rw,h
         local _sx,_sy = w*self.dis_pos.x+_sw/2,cy+h/2
         game.selecting_obj = {x = _sx,y = _sy,w = _sw,h = _sh}
     end
 
     strokeWidth(0)
-    sprite(i,-h/2,h/2,sh)
-    if co then pushMatrix() translate(-sh*2.3,h/2) rotate(t.open.pos) -- Draw point arrow.
-    sprite(sprites["open_arrow"],0,0,sh-WIDTH/200) end popMatrix() fill(COLOR4) 
-    translate(h/4)
+    sprite(i,-sh/8,h/2,sh)
+    if co then pushMatrix() translate(-sh*2,h/2) rotate(t.open.pos) -- Draw point arrow.
+    sprite(sprites["open_arrow"],0,0,sh-WIDTH/200) end popMatrix() fill(COLOR4)
 
-    text(t.obj.name,0,0)
+    text(t.obj.name,h/4,0)
     translate(0,-h)
     
     -- Read files inside
