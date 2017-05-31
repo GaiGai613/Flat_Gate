@@ -54,18 +54,18 @@ function ui:display_selecting_obj()
     local x,y,w,h = b.x,b.y,b.w,b.h
 
     --Change destination.
-    if game.selecting_obj and dsoa.pos == vec4(-10,-10,WIDTH+20,HEIGHT+20) then
+    if game.selecting_obj and ~= game.selecting_obj then
         local ad = vec4(x-w/2,y-h/2,w,h)
-        dsoa = flat_animate(dsoa.pos,ad,0.1)
-    else
+        self.display_selecting_obj_animate = flat_animate(dsoa.pos,ad,0.1,game.selecting_obj)
+    elseif not game.selecting_obj then
         local ad = vec4(-10,-10,WIDTH+20,HEIGHT+20)
-        dsoa = flat_animate(dsoa.pos,ad,0.1)
+        self.display_selecting_obj_animate = flat_animate(dsoa.pos,ad,0.1)
     end
 
     --Draw all the lines.
     strokeWidth(3) stroke(COLOR3)
     local dop = dsoa.pos
-    local points = {vec(dop.x,dop.y),vec2(dop.x,dop.y+dop.w),vec2(dop.x+dop.z,dop.y+dop.w),vec2(dop.x+dop.z,dop.y)}
+    local points = {vec2(dop.x,dop.y),vec2(dop.x,dop.y+dop.w),vec2(dop.x+dop.z,dop.y+dop.w),vec2(dop.x+dop.z,dop.y)}
     for k , point in pairs(points) do
         local x1,y1 = point:unpack()
         local x2,y2 = (points[k%#points+1]):unpack()
