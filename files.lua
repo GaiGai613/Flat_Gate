@@ -3,7 +3,6 @@ files = class()
 function files:init(w)
     self.width = w or WIDTH-HEIGHT
     self.x = -self.width+WIDTH/30 -- or 0
-    self.dis_pos = vec2(2,-1)
     self.dragging = false
     self.bgc = 1
 end
@@ -19,9 +18,9 @@ function files:draw()
     -- Draw files
     local w,h = WIDTH/30,HEIGHT/30
     fontSize(h) textMode(CORNER) rectMode(CORNER)
-    translate(w*2,HEIGHT-h*2) stroke(COLOR4) 
+    translate(w*2,HEIGHT) stroke(COLOR4) 
     clip(self.x,0,self.width-sw/2,HEIGHT)
-    self.dis_pos = vec2(1,-1)
+    self.dis_pos = vec2(0,-2)
     files:display_files(game.files,self.dis_pos) -- Game files
     files:display_files(come_with_gates,self.dis_pos) -- Come-with functions
     clip() textMode(CENTER) rectMode(CENTER) resetMatrix()
@@ -66,13 +65,13 @@ function files:draw()
 end
 
 function files:display_files(t,n) 
-    self.dis_pos.y = self.dis_pos.y+1 
+    self.dis_pos.y = self.dis_pos.y-1 
     local w,__nu,h = WIDTH/30,textSize("l")
     local _t = CurrentTouch
     local co = not(t.obj.contains == nil) -- If there is the "contains" array.
     
     -- Touch checks.
-    local cy = self.dis_pos.y*-h+HEIGHT-h*2
+    local cy = self.dis_pos.y*h+HEIGHT
     local cw = self.width+self.x
     local tc = flat_ui:touch_check_rect(cw/2,cy+h/2,cw,h,TOUCH)
 
@@ -97,21 +96,23 @@ function files:display_files(t,n)
     fill(COLOR2+color(-10))
     strokeWidth(0)
 
-    local sh = h-HEIGHT/80
+    translate(-h/4)
     local ow = -WIDTH/90
     local rw = textSize(t.obj.name)+WIDTH/40
 
-    rect(-h,0,rw+h,h)
+    rect(-h,0,rw+w,h)
     if self.current_on == t then
-        local _sw,_sh = rw+h,h
-        local _sx,_sy = w*dis_pos.x+w_sw/2,cy+h/2
+        local _sw,_sh = rw+w,h
+        local _sx,_sy = w*self.dis_pos.x+_sw/2,cy+h/2
         game.selecting_obj = {x = _sx,y = _sy,w = _sw,h = _sh}
     end
 
     strokeWidth(0)
-    sprite(i,ow,h/2,sh)
+    sprite(i,-h/2,h/2,sh)
     if co then pushMatrix() translate(-sh*2.3,h/2) rotate(t.open.pos) -- Draw point arrow.
     sprite(sprites["open_arrow"],0,0,sh-WIDTH/200) end popMatrix() fill(COLOR4) 
+    translate(h/4)
+
     text(t.obj.name,0,0)
     translate(0,-h)
     
