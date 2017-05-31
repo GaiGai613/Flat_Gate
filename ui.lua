@@ -54,7 +54,7 @@ function ui:display_selecting_obj()
     local x,y,w,h = b.x,b.y,b.w,b.h
 
     --Change destination.
-    if game.selecting_obj and ~= game.selecting_obj then
+    if game.selecting_obj and dsoa.contains ~= game.selecting_obj then
         local ad = vec4(x-w/2,y-h/2,w,h)
         self.display_selecting_obj_animate = flat_animate(dsoa.pos,ad,0.1,game.selecting_obj)
     elseif not game.selecting_obj then
