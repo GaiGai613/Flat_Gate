@@ -41,6 +41,9 @@ function ui:display_camera_pos(e)
 end
 
 function ui:display_selecting_obj()
+    --Reset delay.
+    if game.selecting_obj then self.display_selecting_obj_is_nil = false end
+
     if self.display_selecting_obj_animate.pos == vec4(-10,-10,WIDTH+20,HEIGHT+20) and not game.selecting_obj then return end
 
     local dsoa = self.display_selecting_obj_animate
