@@ -2,6 +2,7 @@ ui = class()
 
 function ui:init()
     self.display_selecting_obj_animate = fasu(vec4(-10,-10,WIDTH+20,HEIGHT+20))
+    self.display_selecting_obj_is_nil = true
 end
 
 function ui:draw_game()
@@ -61,7 +62,7 @@ function ui:display_selecting_obj()
     if game.selecting_obj and dsoa.contains ~= game.selecting_obj then
         local ad = vec4(x-w/2,y-h/2,w,h)
         self.display_selecting_obj_animate = flat_animate(dsoa.pos,ad,0.1,game.selecting_obj)
-    elseif not game.selecting_obj then
+    elseif not game.selecting_obj and self.display_selecting_obj_is_nil then
         local ad = vec4(-10,-10,WIDTH+20,HEIGHT+20)
         self.display_selecting_obj_animate = flat_animate(dsoa.pos,ad,0.1)
     end
@@ -76,6 +77,9 @@ function ui:display_selecting_obj()
         line(x1,y1,x2,y2)
     end
     lineCapMode(SQUARE)
+
+    --Add a one tick delay on reset.
+    if not game.selecting_obj then self.display_selecting_obj_is_nil = true end
 end
 
 function ui:display_obj_info(obj)

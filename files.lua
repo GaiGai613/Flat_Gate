@@ -94,8 +94,10 @@ function files:display_files(t,n)
 
     if flat_ui:touch_check_soft_tap(_sx,_sy,_sw,_sh) then 
         self.current_on = t
-    elseif flat_ui:touch_check_soft_tap(WIDTH/2,HEIGHT/2,WIDTH,HEIGHT) and not flat_ui:touch_check_one_rect(_sx,_sy,_sw,_sh,CurrentTouch) then
-        self.current_on = nil
+    elseif self.current_on == t then
+        if flat_ui:touch_check_soft_tap(WIDTH/2,HEIGHT/2,WIDTH,HEIGHT) and not flat_ui:touch_check_one_rect(_sx,_sy,_sw,_sh,CurrentTouch) then
+            self.current_on = nil
+        end
     end
     
     if co then t.open:update() end --Update arrow animation.
