@@ -3,6 +3,7 @@ files = class()
 function files:init(w)
     self.width = w or WIDTH-HEIGHT
     self.x = -self.width+WIDTH/30 --or 0
+    self.side_width = WIDTH/160
     self.dragging = false
     self.bgc = 1
 end
@@ -10,14 +11,13 @@ end
 function files:draw()
     translate(self.x,0)
     rectMode(CENTER) strokeWidth(0)
-    local sw = WIDTH/160
-    if self.touching_side then sw = WIDTH/100 end
     fill(COLOR2) rect(self.width/2,HEIGHT/2,self.width,HEIGHT)
-    fill(COLOR4) rect(self.width+WIDTH/320,HEIGHT/2,sw,HEIGHT)
+    fill(COLOR4) rect(self.width,HEIGHT/2,self.side_width,HEIGHT)
     
     --Draw files
     local w,h = WIDTH/30,HEIGHT/30
     fontSize(h) textMode(CORNER) rectMode(CORNER)
+
     translate(w*1.5,HEIGHT-h*2) stroke(COLOR4) 
     clip(self.x,0,self.width-sw/2,HEIGHT)
     self.dis_pos = vec2(1.5,-1)
@@ -33,6 +33,7 @@ function files:draw()
 
         self.current_on = nil
     elseif self.dragging then
+
         local t = flat_ui:get_any_same_touch()
         if tap_count == 2 and self.current_on.obj.open then
             local td = flat_ui:touch_check_move().y
@@ -53,6 +54,7 @@ function files:draw()
             end
             self.bgc = 1
         end
+
     else
         self.bgc = 1
     end
@@ -74,8 +76,8 @@ function files:display_files(t,n)
     local rw = textSize(t.obj.name)+h
 
     --Touch checks.
-    local _sw,_sh = rw,h
-    local _sx,_sy = w*self.dis_pos.x+_sw/2-sh,h*self.dis_pos.y+_sh*0.75+HEIGHT
+    local _sw,_sh = math.min(rw+self.x,self.width+self.x-self.side_width/2),h
+    local _sx,_sy = w*self.dis_pos.x+_sw/2-sh+self.x,h*self.dis_pos.y+_sh*0.75+HEIGHT
     local tc = flat_ui:touch_check_rect(_sx,_sy,_sw,_sh,TOUCH)
 
     if self.current_on == t then
@@ -134,7 +136,7 @@ end
 
 function files:update()
     local lw = WIDTH/30
-    if self.touching_side and CurrentTouch.state == MOVING then 
+    if self.side_width == WIDTH/100 and CurrentTouch.state == MOVING then 
         self.x = math.max(math.min(CurrentTouch.x-self.width,0),-self.width+lw)
     else
         local m = 0
@@ -142,22 +144,22 @@ function files:update()
         m = m*DeltaTime*800
         self.x = math.max(math.min(self.x+m,0),-self.width+lw)
     end
-    game.current_editor.camera.move = not (self.touching_side or self.dragging)
+    game.current_editor.camera.move = not ((self.side_width == WIDTH/100) or self.dragging)
 end
 
 function files:touched(t)
     if tap_count == 1 then
         local sw = WIDTH/40
         if flat_ui:touch_check_one_rect(self.width+self.x,HEIGHT/2,sw,HEIGHT,t) and t.state == BEGAN then
-            self.touching_side = true
+            self.side_width = WIDTH/100
         end
     else
-        self.touching_side = false
+        self.side_width = WIDTH/160
     end
     if t.state == ENDED then 
-        self.touching_side = false 
+        self.side_width = WIDTH/160 
         
-        if self.dragging and t.x > self.width+WIDTH/160 and self.current_on.obj.width then
+        if self.dragging and t.x > self.width+self.side_width+self.x and self.current_on.obj.width then
             local e = game.current_editor 
             if game:check_can_add_obj(self.current_on.obj,e.type) then
                 e:add_obj(self.current_on.obj,vec2(math.round((t.x+e.camera.x)/e.size),math.round((t.y+e.camera.y)/e.size)))

@@ -5,6 +5,7 @@ VERSION = readLocalData("VERSION")
 function download()
     url = "https://raw.githubusercontent.com/GaiGai613/Flat_Gate/master/"
     now_tab = 1
+    print("Starting...")
 
     if not (string.sub(VERSION,1,17) == "NEED UPDATE FILES") then
         print("Checking update...")
