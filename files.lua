@@ -87,15 +87,14 @@ function files:display_files(t,n)
         end
     else
         local gso = game.selecting_obj
-        if gso and s == t then
+        if gso and gso.s == t then
             game.selecting_obj = nil
         end
-
     end
 
     if flat_ui:touch_check_soft_tap(_sx,_sy,_sw,_sh) then 
         self.current_on = t
-    elseif tap_count == 1 and _t.state == BEGAN and not tc then
+    elseif flat_ui:touch_check_soft_tap(WIDTH/2,HEIGHT/2,WIDTH,HEIGHT) and not flat_ui:touch_check_one_rect(_sx,_sy,_sw,_sh,CurrentTouch) then
         self.current_on = nil
     end
     
