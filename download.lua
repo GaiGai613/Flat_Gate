@@ -59,7 +59,7 @@ function get_data(data,status,headers)
     end
     print(action_done)
 
-    if now_tab == #classes then print("Finished.") alert("Finished.\nChanged "..(changed_obj or "No").." tab.") close() end
+    if now_tab == #classes then print("Finished.") alert("Finished.\nChanged "..(changed_obj or "no").." tab.") close() end
     now_tab = now_tab+1
     request_data(now_tab)
 end
