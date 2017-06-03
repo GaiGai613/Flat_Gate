@@ -54,7 +54,7 @@ function get_data(data,status,headers)
             action_done = "No change."
         end
     elseif info.type == ".png" then
-        local _image = readProjectTab(info.name)
+        local _image = readImage(info.name)
         if not (_image == data) then
             saveImage("Documents:"..info.name,data)
             action_done = "Saved image."
