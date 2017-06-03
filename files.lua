@@ -116,7 +116,7 @@ function files:update()
     end
     game.current_editor.camera.move = not ((self.side_width == WIDTH/100) or self.dragging)
 
-    if game.selecting_obj.open then
+    if game.selecting_obj and game.selecting_obj.open then
         if flat_ui:touch_check_multi_tap(0.3,2,ui:get_selecting_obj_info()) then
             game.selecting_obj:open()
         end
