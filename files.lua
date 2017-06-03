@@ -29,7 +29,7 @@ function files:draw()
             do
                 local t = flat_ui:get_any_same_touch()
                 local _s = vec4(ui:get_selecting_obj_info())
-                _s.x,_s.y = t.x+_s.x,t.y+_s.y
+                if t then _s.x,_s.y = t.x,t.y end
                 rectMode(CENTER) fill(COLOR2) strokeWidth(0)
                 rect(_s:unpack())
             end
@@ -56,7 +56,7 @@ function files:update()
     game.current_editor.camera.move = not ((self.side_width == WIDTH/100) or self.dragging)
 
     do
-        if game.selecting_obj and game.selecting_obj.s == self.current_on then
+        if game.selecting_obj and self.current_on and game.selecting_obj.s == self.current_on then
             local _s = vec4(ui:get_selecting_obj_info())
             local obj_table = self.current_on
             local obj = obj_table.obj
@@ -78,7 +78,7 @@ function files:update()
                         self.dragging = true
                     end
                 end
-                if t.state == ENDED then
+                if not flat_ui:get_any_same_touch() or (t and t.state == ENDED) then
                     self.dragging = false
                 end
             end
