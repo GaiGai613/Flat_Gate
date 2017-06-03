@@ -5,7 +5,6 @@ function files:init(w)
     self.x = -self.width+WIDTH/30 --or 0
     self.side_width = WIDTH/160
     self.dragging = false
-    self.bgc = 1
 end
 
 function files:draw()
@@ -26,38 +25,7 @@ function files:draw()
     clip() textMode(CENTER) rectMode(CENTER) resetMatrix()
     
     --Draw
-    if self.bgc <= 0 or (tap_count == 2 and CurrentTouch.state == ENDED and self.current_on.obj.open) then
-        if self.current_on then self.current_on.obj:open() end
-        self.bgc,self.dragging = 1,false
-        game:display_name(self.current_on.obj.name)
-
-        self.current_on = nil
-    elseif self.dragging then
-
-        local t = flat_ui:get_any_same_touch()
-        if tap_count == 2 and self.current_on.obj.open then
-            local td = flat_ui:touch_check_move().y
-            self.bgc = math.min(self.bgc+math.min(td,0)/300,1)
-            fill(0,50*self.bgc) strokeWidth(0)
-            rect(WIDTH/2,HEIGHT/2,WIDTH,HEIGHT)
-        elseif t then
-            if t.x > self.width+sw and self.current_on.obj.width and game:check_can_add_obj(self.current_on.obj,game.current_editor.type) then 
-                clip(self.width+sw,0,WIDTH,HEIGHT) --Pre view for the obj.
-                game.current_editor:draw_pre_view(self.current_on.obj,t) clip()
-            else
-                if t.x > self.width+sw then
-                    fill(0,50*self.bgc) strokeWidth(0)
-                    rect(WIDTH/2,HEIGHT/2,WIDTH,HEIGHT)
-                end
-                fill(127, 127, 127, 84) rectMode(CENTER) strokeWidth(2)
-                rect(t.x,t.y,WIDTH/8,WIDTH/8)
-            end
-            self.bgc = 1
-        end
-
-    else
-        self.bgc = 1
-    end
+    
     
     --Display open name.
     if game.dis_nam then
@@ -147,6 +115,12 @@ function files:update()
         self.x = math.max(math.min(self.x+m,0),-self.width+lw)
     end
     game.current_editor.camera.move = not ((self.side_width == WIDTH/100) or self.dragging)
+
+    if game.selecting_obj.open then
+        if flat_ui:touch_check_multi_tap(0.3,2,ui:get_selecting_obj_info()) then
+            game.selecting_obj:open()
+        end
+    end
 end
 
 function files:touched(t)

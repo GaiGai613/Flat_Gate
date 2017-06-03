@@ -89,6 +89,15 @@ function ui:display_selecting_obj()
     if not game.selecting_obj then self.display_selecting_obj_is_nil = true end
 end
 
+function ui:get_selecting_obj_info()
+    local obj = game.selecting_obj
+    if not obj then return false end
+    local b = obj.button or obj
+    local x,y = b.x,b.y
+    local w,h = b.width or b.w,b.height or b.h
+    return x,y,w,h
+end
+
 function ui:display_obj_info(obj)
     
 end
