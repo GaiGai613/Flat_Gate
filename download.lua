@@ -49,8 +49,8 @@ function get_data(data,status,headers)
         if not tab == data then
             saveProjectTab(info.name,data)
             action_done = "Saved tab.\n"..(string.len(data))
-        else
             changed_tab = (changed_tab or 0)+1
+        else
             action_done = "No change."
         end
     elseif info.type == ".png" then
