@@ -34,7 +34,11 @@ end
 
 function not_gate:update()
     if self.output and self.input then
-        self.output.input.value = 1-self.input.output.value
+        local value = 1-self.input.output.value
+        if value ~= self.output.input.value then
+            self.output.input.value = value
+            self.output:update()
+        end
     end
 end
 

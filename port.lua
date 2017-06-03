@@ -35,6 +35,16 @@ function port:draw(s,x,y,info)
     end 
 end
 
+function port:update()
+    if self.output and self.input then
+        local value = 1-self.input.output.value
+        if value ~= self.output.input.value then
+            self.output.input.value = value
+            self.output:update()
+        end
+    end
+end
+
 function port:update_button_pos()
     if not self.obj.editor then return end
     if not self.button then self.button = flat_ui:add_button(0,0,0,0,color(0,0)) end

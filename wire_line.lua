@@ -22,7 +22,7 @@ function wire_line:draw(s)
     --Button update.
     if self.button then flat_ui:button_draw(self.button) end
     if self.button.pressed then
-        if tap_count == 1 then game.selected = self end
+        game.selecting_obj = self
     end 
 end
 

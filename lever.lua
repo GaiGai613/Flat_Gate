@@ -30,7 +30,13 @@ function lever:draw(s,x,y)
 end
 
 function lever:update()
-    
+    if self.output then
+        local value = self.value
+        if self.output.input ~= value then
+            self.output.input = value
+            self.output:update()
+        end
+    end
 end
 
 function lever:update_button_pos()

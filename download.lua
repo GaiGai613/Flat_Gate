@@ -49,7 +49,7 @@ function get_data(data,status,headers)
         if not (tab == data) then
             saveProjectTab(info.name,data)
             action_done = "Saved tab.\n"..(string.len(data))
-            changed_obj = (changed_obj or 0)+1
+            changed_tab = (changed_tab or 0)+1
         else
             action_done = "No change."
         end
@@ -59,7 +59,7 @@ function get_data(data,status,headers)
     end
     print(action_done)
 
-    if now_tab == #classes then print("Finished.") alert("Finished.\nChanged "..(changed_obj or "no").." tab.") close() end
+    if now_tab == #classes then print("Finished.") alert("Finished.\nChanged "..(changed_tab or "no").." tab.") close() end
     now_tab = now_tab+1
     request_data(now_tab)
 end
