@@ -119,7 +119,9 @@ function files:update()
     if game.selecting_obj and game.selecting_obj.s == self.current_on then
         local obj = self.current_on.obj
         if obj.open and flat_ui:touch_check_multi_tap(0.3,2,ui:get_selecting_obj_info()) then
-            game.selecting_obj:open()
+            obj:open()
+            game:display_name(obj.name)
+            game.selecting_obj = nil
         end
     end
 end
