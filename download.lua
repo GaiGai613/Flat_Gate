@@ -41,18 +41,24 @@ end
 
 function get_data(data,status,headers)
     local info = classes[now_tab]
+    local action_done
+
     print('Finished download file "'..(info.name)..(info.type)..'".')
     if info.type == ".lua" then
         local tab = readProjectTab(info.name)
         if not tab == data then
             saveProjectTab(info.name,data)
+            action_done = "Saved tab.\n"..(string.len(data))
         else
             changed_tab = (changed_tab or 0)+1
+            action_done = "No change."
         end
     elseif info.type == ".png" then
         saveImage("Documents:"..info.name,data)
     end
-    if now_tab == #classes then print("Finished.") alert("Finished.\nChanged "..(changed_tab or "No")..(" tab.") close() end
+    print(action_done)
+
+    if now_tab == #classes then print("Finished.") alert("Finished.\nChanged "..(changed_tab or "No").." tab.") close() end
     now_tab = now_tab+1
     request_data(now_tab)
 end
