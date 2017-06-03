@@ -41,7 +41,7 @@ end
 
 function get_data(data,status,headers)
     local info = classes[now_tab]
-    local action_done = "Error on imporing file."
+    local action_done
 
     print('Finished download file "'..(info.name)..(info.type)..'".')
     if info.type == ".lua" then
@@ -54,14 +54,8 @@ function get_data(data,status,headers)
             action_done = "No change."
         end
     elseif info.type == ".png" then
-        local _image = readImage(info.name)
-        if not (_image == data) then
-            saveImage("Documents:"..info.name,data)
-            action_done = "Saved image."
-            changed_obj = (changed_obj or 0)+1
-        else
-            action_done = "No change."
-        end
+        action_done = "Changed image."
+        saveImage("Documents:"..info.name,data)
     end
     print(action_done)
 
