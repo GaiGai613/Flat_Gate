@@ -46,7 +46,7 @@ function get_data(data,status,headers)
     print('Finished download file "'..(info.name)..(info.type)..'".')
     if info.type == ".lua" then
         local tab = readProjectTab(info.name)
-        if not tab == data then
+        if not (tab == data) then
             saveProjectTab(info.name,data)
             action_done = "Saved tab.\n"..(string.len(data))
             changed_obj = (changed_obj or 0)+1
@@ -55,7 +55,7 @@ function get_data(data,status,headers)
         end
     elseif info.type == ".png" then
         local _image = readProjectTab(info.name)
-        if not _image == data then
+        if not (_image == data) then
             saveImage("Documents:"..info.name,data)
             action_done = "Saved image.")
             changed_obj = (changed_obj or 0)+1
