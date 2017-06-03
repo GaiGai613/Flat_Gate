@@ -12,8 +12,7 @@ end
 function ui:draw_editor(e,c)
     local c = c or COLOR4
     strokeWidth(1)
-    c.a = 70
-    stroke(c)
+    stroke(cca(c,70))
     local s = e.size
     local x,y = e.camera.x,e.camera.y
     local tl = 4
@@ -25,7 +24,6 @@ function ui:draw_editor(e,c)
         --if math.floor(py+y/s)%tl == 0 then strokeWidth(2) else strokeWidth(1) end
         line(-10,py*s-y%s,WIDTH+10,py*s-y%s)
     end
-    c.a = 255
 end
 
 function ui:display_camera_pos(e)
@@ -105,6 +103,12 @@ end
 function ui:touched(t)
     
 end
+
+function change_color_alpha(c,a)
+    local cc = color(c.r,c.g,c.b,a)
+    return cc
+end
+cca = change_color_alpha
 
 --Theme colors.
 COLOR1 = color(255,255,255)

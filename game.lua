@@ -88,7 +88,7 @@ function cwg()
 end
 
 function gdc() --Gate defalt color.
-    strokeWidth(2) COLOR1.a = 255
+    strokeWidth(2)
     fill(COLOR1)
     stroke(COLOR4)
 end

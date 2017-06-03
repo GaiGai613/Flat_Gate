@@ -23,7 +23,7 @@ function not_gate:draw(s,x,y,info)
     --We don't need draw wire here cause it will draw by editor.
 
     gdc()
-    rect(x,y,self.width*s,self.height*s) COLOR2.a = 255 --Background
+    rect(x,y,self.width*s,self.height*s) --Background
     fill(COLOR2) fontSize(s) text("N",x,y) --"N"
 
     if self.button then 

@@ -50,17 +50,17 @@ function flat_ui:touch()
 end
 
 function flat_ui:touch_check_rect(x,y,w,h,type)
+    local type = type or TOUCH
     for k , t in pairs(self.touches) do
         if flat_ui:touch_check_one_rect(x,y,w,h,t) then
+            if type == TOUCH then
+                return t
+            end
+                if t.state == type then
+                    return t
+                end
             if t.state == ENDED then
                 if type == BUTTON then
-                    return t
-                end
-            else
-                if type == TOUCH then
-                    return t
-                end
-                if t.state == type then
                     return t
                 end
             end

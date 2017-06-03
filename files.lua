@@ -4,7 +4,6 @@ function files:init(w)
     self.width = w or WIDTH-HEIGHT
     self.x = -self.width+WIDTH/30 --or 0
     self.side_width = WIDTH/160
-    self.dragging = false
 end
 
 function files:draw()
@@ -25,13 +24,66 @@ function files:draw()
     clip() textMode(CENTER) rectMode(CENTER) resetMatrix()
     
     --Draw
-    
+    do
+        if self.dragging then
+            do
+                local _s = vec4(ui:get_selecting_obj_info())
+                rectMode(CENTER) fill(COLOR2) strokeWidth(0)
+                rect(_s)
+            end
+        end
+    end
     
     --Display open name.
     if game.dis_nam then
         fill(COLOR3) fontSize(HEIGHT/10) textMode(CENTER)
         text(game.dis_nam.contains.name,(WIDTH-self.width-self.x)/2+self.width+self.x,game.dis_nam.pos)
     end
+end
+
+function files:update()
+    local lw = WIDTH/30
+    if self.side_width == WIDTH/100 and CurrentTouch.state == MOVING then 
+        self.x = math.max(math.min(CurrentTouch.x-self.width,0),-self.width+lw)
+    else
+        local m = 0
+        if self.x > (-self.width+lw)*0.3 then m = 1 else m = -1 end
+        m = m*DeltaTime*800
+        self.x = math.max(math.min(self.x+m,0),-self.width+lw)
+    end
+    game.current_editor.camera.move = not ((self.side_width == WIDTH/100) or self.dragging)
+
+    do
+        if game.selecting_obj and game.selecting_obj.s == self.current_on then
+            local _s = vec4(ui:get_selecting_obj_info())
+            local obj_table = self.current_on
+            local obj = obj_table.obj
+
+            --Open obj and open editor.
+            if obj.open and flat_ui:touch_check_multi_tap(0.3,2,_s:unpack()) then
+                obj:open()
+                game:display_name(obj.name)
+                game.selecting_obj = nil
+            elseif flat_ui:touch_check_soft_tap(_s:unpack()) and obj_table.open then
+                t.open = flat_animate(t.open.pos,math.ceil(-t.open.pos/90)*90-90,0.2)
+            end
+
+            --Drag obj.
+            do 
+                local t = flat_ui:touch_check_rect(_s:unpack())
+                if t then
+                    if t.state == MOVING then
+                        self.dragging = true
+                    elseif t.state == ENDED then
+                        self.dragging = false
+                    end
+                else
+                    
+                end
+            end
+        end
+    end
+
 end
 
 function files:display_files(t,n) 
@@ -52,11 +104,6 @@ function files:display_files(t,n)
 
     if self.current_on == t then
         game.selecting_obj = {x = _sx,y = _sy,w = _sw,h = _sh,s = t}
-        if flat_ui:touch_check_soft_tap(_sx,_sy,_sw,_sh) and t.open then
-            t.open = flat_animate(t.open.pos,math.ceil(-t.open.pos/90)*90-90,0.2)
-        elseif _t.state == MOVING and tc then
-            self.dragging = true --Moving the obj.
-        end
     else
         local gso = game.selecting_obj
         if gso and gso.s == t then
@@ -102,28 +149,6 @@ function files:display_files(t,n)
         translate(-w,0)
     end
     
-end
-
-function files:update()
-    local lw = WIDTH/30
-    if self.side_width == WIDTH/100 and CurrentTouch.state == MOVING then 
-        self.x = math.max(math.min(CurrentTouch.x-self.width,0),-self.width+lw)
-    else
-        local m = 0
-        if self.x > (-self.width+lw)*0.3 then m = 1 else m = -1 end
-        m = m*DeltaTime*800
-        self.x = math.max(math.min(self.x+m,0),-self.width+lw)
-    end
-    game.current_editor.camera.move = not ((self.side_width == WIDTH/100) or self.dragging)
-
-    if game.selecting_obj and game.selecting_obj.s == self.current_on then
-        local obj = self.current_on.obj
-        if obj.open and flat_ui:touch_check_multi_tap(0.3,2,ui:get_selecting_obj_info()) then
-            obj:open()
-            game:display_name(obj.name)
-            game.selecting_obj = nil
-        end
-    end
 end
 
 function files:touched(t)
