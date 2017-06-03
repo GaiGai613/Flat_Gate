@@ -66,8 +66,8 @@ function ui:display_selecting_obj()
     --Change destination.
     if game.selecting_obj and dsoa.contains ~= game.selecting_obj then
         local bt = math.checkBetween
-        local ad = vec4(bt(x-w/2,sw,WIDTH-sw),bt(y-h/2,sw,HEIGHT-sw),w,h)
-        ad.z,ad.w = bt(ad.z+ad.x,sw,WIDTH-sw),bt(ad.w+ad.y,sw,HEIGHT-sw)
+        local ad = vec4(x-w/2,y-h/2,bt(w+x-w/2,0,w),bt(h+y-h/2,0,h))
+        ad.x,ad.y = bt(ad.x,sw,WIDTH-sw),bt(ad.y,sw,HEIGHT-sw)
         self.display_selecting_obj_animate = flat_animate(dsoa.pos,ad,0.1,game.selecting_obj)
     elseif not game.selecting_obj and self.display_selecting_obj_is_nil then
         local ad = vec4(-10,-10,WIDTH+20,HEIGHT+20)
