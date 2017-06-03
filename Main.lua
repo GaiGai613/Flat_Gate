@@ -41,6 +41,10 @@ function input_images()
     sprites["open_arrow"] = i
 end
 
+function math.checkBetween(v,min,max)
+    return math.min(math.max(v,max),min)
+end
+
 function math.roundTo(v,t)
     return math.round(v/t)*t
 end

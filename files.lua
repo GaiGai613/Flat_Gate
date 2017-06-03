@@ -19,7 +19,7 @@ function files:draw()
     fontSize(h) textMode(CORNER) rectMode(CORNER)
 
     translate(w*1.5,HEIGHT-h*2) stroke(COLOR4) 
-    clip(self.x,0,self.width-sw/2,HEIGHT)
+    clip(self.x,0,self.width-self.side_width/2,HEIGHT)
     self.dis_pos = vec2(1.5,-1)
     files:display_files(game.files,self.dis_pos) --Game files
     files:display_files(come_with_gates,self.dis_pos) --Come-with functions
