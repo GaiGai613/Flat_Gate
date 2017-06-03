@@ -76,7 +76,7 @@ function files:display_files(t,n)
     local rw = textSize(t.obj.name)+h
 
     --Touch checks.
-    local _sw,_sh = math.min(rw+self.x,self.width+self.x-self.side_width/2),h
+    local _sw,_sh = rw,h
     local _sx,_sy = w*self.dis_pos.x+_sw/2-sh+self.x,h*self.dis_pos.y+_sh*0.75+HEIGHT
     local tc = flat_ui:touch_check_rect(_sx,_sy,_sw,_sh,TOUCH)
 

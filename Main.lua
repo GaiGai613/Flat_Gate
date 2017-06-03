@@ -42,7 +42,7 @@ function input_images()
 end
 
 function math.checkBetween(v,min,max)
-    return math.min(math.max(v,max),min)
+    return math.min(math.max(v,min),max)
 end
 
 function math.roundTo(v,t)

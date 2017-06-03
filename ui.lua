@@ -65,7 +65,8 @@ function ui:display_selecting_obj()
 
     --Change destination.
     if game.selecting_obj and dsoa.contains ~= game.selecting_obj then
-        local ad = vec4(x-w/2,sw,y-h/2,sw,w,h)
+        local bt = math.checkBetween
+        local ad = vec4(bt(x-w/2,sw,WIDTH-sw),bt(y-h/2,sw,HEIGHT-sw),w,h)
         self.display_selecting_obj_animate = flat_animate(dsoa.pos,ad,0.1,game.selecting_obj)
     elseif not game.selecting_obj and self.display_selecting_obj_is_nil then
         local ad = vec4(-10,-10,WIDTH+20,HEIGHT+20)
@@ -77,10 +78,9 @@ function ui:display_selecting_obj()
     local dop = dsoa.pos
     local points = {vec2(dop.x,dop.y),vec2(dop.x,dop.y+dop.w),vec2(dop.x+dop.z,dop.y+dop.w),vec2(dop.x+dop.z,dop.y)}
     for k , point in pairs(points) do
-        local bt = math.checkBetween
         local x1,y1 = point:unpack()
         local x2,y2 = (points[k%#points+1]):unpack()
-        line(bt(x1,sw,WIDTH-sw),bt(y1,sw,HEIGHT-sw),bt(x2,sw,WIDTH-sw),bt(y2,sw,HEIGHT-sw))
+        line(x1,y1,x2,y2)
     end
     lineCapMode(SQUARE)
 
