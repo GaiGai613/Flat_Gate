@@ -57,7 +57,7 @@ function get_data(data,status,headers)
         local _image = readProjectTab(info.name)
         if not (_image == data) then
             saveImage("Documents:"..info.name,data)
-            action_done = "Saved image.")
+            action_done = "Saved image."
             changed_obj = (changed_obj or 0)+1
         else
             action_done = "No change."
