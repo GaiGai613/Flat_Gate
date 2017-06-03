@@ -26,9 +26,11 @@ function not_gate:draw(s,x,y,info)
     rect(x,y,self.width*s,self.height*s) COLOR2.a = 255 --Background
     fill(COLOR2) fontSize(s) text("N",x,y) --"N"
 
-    if self.button then flat_ui:button_draw(self.button) end
-    if self.button.pressed then
-        if tap_count == 1 then game.selected = self end
+    if self.button then 
+        flat_ui:button_draw(self.button)
+        if self.button.pressed then
+            game.selecting_obj = self
+        end
     end 
 end
 

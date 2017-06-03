@@ -75,7 +75,7 @@ function ui:display_selecting_obj()
     end
 
     --Draw all the lines.
-    strokeWidth(sw) stroke(COLOR3) lineCapMode(ROUND)
+    strokeWidth(sw) stroke(COLOR4) lineCapMode(ROUND)
     local dop = dsoa.pos
     local points = {vec2(dop.x,dop.y),vec2(dop.x,dop.y+dop.w),vec2(dop.x+dop.z,dop.y+dop.w),vec2(dop.x+dop.z,dop.y)}
     for k , point in pairs(points) do

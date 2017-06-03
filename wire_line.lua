@@ -16,14 +16,19 @@ function wire_line:draw(s)
     stroke(COLOR3) strokeWidth(w*3) fill(COLOR3)
     line(sx*s,sy*s,ex*s,ey*s) stroke(COLOR2) strokeWidth(w)
     line(sx*s,sy*s,ex*s,ey*s)
-    
-    if self.button then flat_ui:button_draw(self.button) end
 
     --Button update.
-    if self.button then flat_ui:button_draw(self.button) end
-    if self.button.pressed then
-        game.selecting_obj = self
-    end 
+    if self.button then 
+        flat_ui:button_draw(self.button)
+        if self.button.pressed then
+            local bs = {button = self.button}
+            local b = bs.button
+            local bw = self.wire.editor.size/2.1
+            if b.width == bw then b.width = w*3 end
+            if b.height == bw then b.height = w*3 end
+            game.selecting_obj = bs
+        end 
+    end
 end
 
 function wire_line:move(v)

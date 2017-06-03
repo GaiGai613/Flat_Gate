@@ -23,9 +23,11 @@ function lever:draw(s,x,y)
     rect(x,y+(-self.value+0.5)*0.6*s,s*0.8,s*0.2)
 
     --Button update.
-    if self.button then flat_ui:button_draw(self.button) end
-    if self.button.pressed then
-        if tap_count == 1 then game.selected = self end
+    if self.button then 
+        flat_ui:button_draw(self.button)
+        if self.button.pressed then
+            game.selecting_obj = self
+        end
     end 
 end
 
