@@ -27,9 +27,11 @@ function files:draw()
     do
         if self.dragging then
             do
+                local t = flat_ui:get_any_same_touch()
                 local _s = vec4(ui:get_selecting_obj_info())
+                _s.x,_s.y = t.x+_s.x,t.y+_s.y
                 rectMode(CENTER) fill(COLOR2) strokeWidth(0)
-                rect(_s)
+                rect(_s:unpack())
             end
         end
     end
@@ -65,7 +67,7 @@ function files:update()
                 game:display_name(obj.name)
                 game.selecting_obj = nil
             elseif flat_ui:touch_check_soft_tap(_s:unpack()) and obj_table.open then
-                t.open = flat_animate(t.open.pos,math.ceil(-t.open.pos/90)*90-90,0.2)
+                obj_table.open = flat_animate(obj_table.open.pos,math.ceil(-obj_table.open.pos/90)*90-90,0.2)
             end
 
             --Drag obj.
@@ -74,11 +76,10 @@ function files:update()
                 if t then
                     if t.state == MOVING then
                         self.dragging = true
-                    elseif t.state == ENDED then
-                        self.dragging = false
                     end
-                else
-                    
+                end
+                if t.state == ENDED then
+                    self.dragging = false
                 end
             end
         end
