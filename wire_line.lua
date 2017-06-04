@@ -23,7 +23,7 @@ function wire_line:draw(s)
         if self.button.pressed then
             local bs = {button = self.button}
             local b = bs.button
-            local bw = self.wire.editor.size/2.1
+            local bw = self.wire.editor.size/2
             if b.width == bw then b.width = w*3 end
             if b.height == bw then b.height = w*3 end
             game.selecting_obj = bs

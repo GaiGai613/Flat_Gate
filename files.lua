@@ -35,7 +35,7 @@ function files:draw()
                     rect(_s:unpack())
                 else
                     local obj = self.current_on.obj
-                    if game:check_can_add_obj(obj) then
+                    if game:check_can_add_obj(obj,game.current_editor.type) then
                         game.current_editor:draw_pre_view(obj,vec2(t.x,t.y))
                     end
                 end
