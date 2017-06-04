@@ -1,4 +1,4 @@
-lamp = class()
+lamp = class(gate_obj)
 
 function lamp:init(obj)
     self.value = 0
@@ -7,11 +7,8 @@ function lamp:init(obj)
     self.obj = obj
     self.gate_id = 2
     self.width,self.height = 1,1
-    if obj then
-        local s = obj.editor.size
-        self.obj = obj
-        self.button = flat_ui:add_button(obj.x*s,obj.y*s,self.width*s,self.height*s,color(0,0))
-    end
+
+    self:add_obj()
 end
 
 function lamp:draw(s,x,y)
@@ -21,12 +18,7 @@ function lamp:draw(s,x,y)
     rect(x,y,s*0.8)
 
     --Button update.
-    if self.button then 
-        flat_ui:button_draw(self.button)
-        if self.button.pressed then
-            game.selecting_obj = self
-        end
-    end 
+    self:update_button()
 end
 
 function lamp:update()
@@ -35,19 +27,6 @@ function lamp:update()
     end
 end
 
-function lamp:update_button_pos()
-    if not self.obj.editor then return end
-    if not self.button then self.button = flat_ui:add_button(0,0,0,0,color(0,0)) end
-    local ed = self.obj.editor
-    local pos = vec2(self.obj.x,self.obj.y)*ed.size
-    
-    self.button.x,self.button.y = pos:unpack()
-    self.button.width,self.button.height = self.width*ed.size,self.height*ed.size
-end
-
 function lamp:touched(t)
-    local b,obj = self.button,self.obj
-    b.x,b.y = b.x-obj.editor.camera.x,b.x-obj.editor.camera.x
-    flat_ui:button_draw(self.button)
-    if self.button.pressed then print("xixi") end
+    
 end

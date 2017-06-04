@@ -22,5 +22,6 @@ classes = {
 {name = "editor_icon",type = ".png"},
 {name = "folder_icon",type = ".png"},
 {name = "project_icon",type = ".png"},
-{name = "ui_icon",type = ".png"}
+{name = "ui_icon",type = ".png"},
+{name = "gate_obj",type = ".lua"}
 }
