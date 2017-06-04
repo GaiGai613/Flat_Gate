@@ -26,6 +26,7 @@ function not_gate:draw(s,x,y,info)
     rect(x,y,self.width*s,self.height*s) --Background
     fill(COLOR2) fontSize(s) text("N",x,y) --"N"
 
+    --Button update.
     if self.button then 
         flat_ui:button_draw(self.button)
         if self.button.pressed then
