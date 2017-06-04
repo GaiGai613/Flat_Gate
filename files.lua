@@ -26,12 +26,19 @@ function files:draw()
     --Draw
     do
         if self.dragging then
-            do
+            do                
                 local t = flat_ui:get_any_same_touch()
-                local _s = vec4(ui:get_selecting_obj_info())
-                if t then _s.x,_s.y = t.x,t.y end
-                rectMode(CENTER) fill(COLOR2) strokeWidth(0)
-                rect(_s:unpack())
+                if t.x < self.width+self.x then
+                    local _s = vec4(ui:get_selecting_obj_info())
+                    if t then _s.x,_s.y = t.x,t.y end
+                    rectMode(CENTER) fill(COLOR2) strokeWidth(0)
+                    rect(_s:unpack())
+                else
+                    local obj = self.current_on.obj
+                    if game:check_can_add_obj(obj) then
+                        game.current_editor:draw_pre_view(obj,vec2(t.x,t.y))
+                    end
+                end
             end
         end
     end
@@ -95,7 +102,7 @@ function files:display_files(t,n)
     
     local sh = h*0.6
     local rw = textSize(t.obj.name)+h
-
+    
     --Touch checks.
     local _sw,_sh = rw,h
     local _sx,_sy = w*self.dis_pos.x-sh+self.x,h*self.dis_pos.y+_sh*0.75+HEIGHT
